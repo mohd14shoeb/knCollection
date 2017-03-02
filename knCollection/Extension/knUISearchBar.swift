@@ -6,9 +6,7 @@
 //  Copyright © 2017 Ky Nguyen. All rights reserved.
 //
 
-import Foundation
-
-
+import UIKit
 extension UISearchBar {
     
     private func getViewElement<T>(type: T.Type) -> T? {
