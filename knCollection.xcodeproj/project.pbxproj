@@ -1,0 +1,383 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		26FE67D81E681E210075C72A /* knCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 26FE67D71E681E210075C72A /* knCollection.m */; };
+		26FE67D91E681E210075C72A /* knCollection.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 26FE67D61E681E210075C72A /* knCollection.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		26FE67D11E681E210075C72A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				26FE67D91E681E210075C72A /* knCollection.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		26FE67D31E681E210075C72A /* libknCollection.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libknCollection.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		26FE67D61E681E210075C72A /* knCollection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = knCollection.h; sourceTree = "<group>"; };
+		26FE67D71E681E210075C72A /* knCollection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = knCollection.m; sourceTree = "<group>"; };
+		26FE67E01E681E350075C72A /* DatePickerDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
+		26FE67E11E681E350075C72A /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		26FE67E21E681E350075C72A /* KMPlaceholderTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMPlaceholderTextView.swift; sourceTree = "<group>"; };
+		26FE67E31E681E350075C72A /* knAnalogClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knAnalogClockView.swift; sourceTree = "<group>"; };
+		26FE67E41E681E350075C72A /* knAnimationScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knAnimationScrollView.swift; sourceTree = "<group>"; };
+		26FE67E51E681E350075C72A /* knBarButtonNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knBarButtonNumber.swift; sourceTree = "<group>"; };
+		26FE67E61E681E350075C72A /* knButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knButton.swift; sourceTree = "<group>"; };
+		26FE67E71E681E350075C72A /* knCircleCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knCircleCharacterView.swift; sourceTree = "<group>"; };
+		26FE67E81E681E350075C72A /* knCircleProcessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knCircleProcessView.swift; sourceTree = "<group>"; };
+		26FE67E91E681E350075C72A /* knCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knCodeView.swift; sourceTree = "<group>"; };
+		26FE67EA1E681E350075C72A /* knContactPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knContactPicker.swift; sourceTree = "<group>"; };
+		26FE67EB1E681E350075C72A /* knDotLoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knDotLoadingIndicator.swift; sourceTree = "<group>"; };
+		26FE67EC1E681E350075C72A /* knDraggableViewCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knDraggableViewCollection.swift; sourceTree = "<group>"; };
+		26FE67ED1E681E350075C72A /* knExpandTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knExpandTextField.swift; sourceTree = "<group>"; };
+		26FE67EE1E681E350075C72A /* knImageSlideShow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knImageSlideShow.swift; sourceTree = "<group>"; };
+		26FE67EF1E681E350075C72A /* knPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knPageViewController.swift; sourceTree = "<group>"; };
+		26FE67F01E681E350075C72A /* knRippleAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knRippleAnimationView.swift; sourceTree = "<group>"; };
+		26FE67F11E681E350075C72A /* knScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knScrollView.swift; sourceTree = "<group>"; };
+		26FE67F21E681E350075C72A /* knShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knShimmerView.swift; sourceTree = "<group>"; };
+		26FE67F31E681E350075C72A /* knStretchingHeaderTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knStretchingHeaderTableView.swift; sourceTree = "<group>"; };
+		26FE67F41E681E350075C72A /* knTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knTagView.swift; sourceTree = "<group>"; };
+		26FE67F51E681E350075C72A /* knTransparentTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knTransparentTextField.swift; sourceTree = "<group>"; };
+		26FE67F61E681E350075C72A /* knTwoCollumnsCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knTwoCollumnsCollectionViewLayout.swift; sourceTree = "<group>"; };
+		26FE67F71E681E350075C72A /* knUnderlineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knUnderlineTextField.swift; sourceTree = "<group>"; };
+		26FE67F81E681E350075C72A /* knViewBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knViewBase.swift; sourceTree = "<group>"; };
+		26FE67F91E681E350075C72A /* kStackThreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = kStackThreeView.swift; sourceTree = "<group>"; };
+		26FE67FA1E681E350075C72A /* MIDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDatePicker.swift; sourceTree = "<group>"; };
+		26FE67FB1E681E350075C72A /* RSKCollectionViewRetractableFirstItemLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSKCollectionViewRetractableFirstItemLayout.swift; sourceTree = "<group>"; };
+		26FE67FC1E681E350075C72A /* SnakePageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakePageControl.swift; sourceTree = "<group>"; };
+		26FE67FD1E681E350075C72A /* TransitionSubmitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionSubmitButton.swift; sourceTree = "<group>"; };
+		26FE67FF1E681E350075C72A /* knNSDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knNSDate.swift; sourceTree = "<group>"; };
+		26FE68001E681E350075C72A /* knString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knString.swift; sourceTree = "<group>"; };
+		26FE68011E681E350075C72A /* knUIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knUIApplication.swift; sourceTree = "<group>"; };
+		26FE68021E681E350075C72A /* knUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knUIButton.swift; sourceTree = "<group>"; };
+		26FE68031E681E350075C72A /* knUIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knUIColor.swift; sourceTree = "<group>"; };
+		26FE68041E681E350075C72A /* knUIExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knUIExtension.swift; sourceTree = "<group>"; };
+		26FE68051E681E350075C72A /* knUIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knUIImage.swift; sourceTree = "<group>"; };
+		26FE68061E681E350075C72A /* knUINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knUINavigationController.swift; sourceTree = "<group>"; };
+		26FE68071E681E350075C72A /* knUIScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knUIScrollView.swift; sourceTree = "<group>"; };
+		26FE68081E681E350075C72A /* knUISearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knUISearchBar.swift; sourceTree = "<group>"; };
+		26FE68091E681E350075C72A /* knUITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knUITableView.swift; sourceTree = "<group>"; };
+		26FE680A1E681E350075C72A /* knUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knUITextField.swift; sourceTree = "<group>"; };
+		26FE680B1E681E350075C72A /* knUITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knUITextView.swift; sourceTree = "<group>"; };
+		26FE680C1E681E350075C72A /* knUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knUIView.swift; sourceTree = "<group>"; };
+		26FE680D1E681E350075C72A /* knUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knUIViewController.swift; sourceTree = "<group>"; };
+		26FE680F1E681E350075C72A /* knScreenSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = knScreenSize.swift; sourceTree = "<group>"; };
+		26FE68101E681E350075C72A /* SafeJsonObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeJsonObject.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		26FE67D01E681E210075C72A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		26FE67CA1E681E210075C72A = {
+			isa = PBXGroup;
+			children = (
+				26FE67D51E681E210075C72A /* knCollection */,
+				26FE67D41E681E210075C72A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		26FE67D41E681E210075C72A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				26FE67D31E681E210075C72A /* libknCollection.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		26FE67D51E681E210075C72A /* knCollection */ = {
+			isa = PBXGroup;
+			children = (
+				26FE67DF1E681E350075C72A /* Control */,
+				26FE67FE1E681E350075C72A /* Extension */,
+				26FE680E1E681E350075C72A /* Setting */,
+				26FE67D61E681E210075C72A /* knCollection.h */,
+				26FE67D71E681E210075C72A /* knCollection.m */,
+			);
+			path = knCollection;
+			sourceTree = "<group>";
+		};
+		26FE67DF1E681E350075C72A /* Control */ = {
+			isa = PBXGroup;
+			children = (
+				26FE67E01E681E350075C72A /* DatePickerDialog.swift */,
+				26FE67E11E681E350075C72A /* GradientView.swift */,
+				26FE67E21E681E350075C72A /* KMPlaceholderTextView.swift */,
+				26FE67E31E681E350075C72A /* knAnalogClockView.swift */,
+				26FE67E41E681E350075C72A /* knAnimationScrollView.swift */,
+				26FE67E51E681E350075C72A /* knBarButtonNumber.swift */,
+				26FE67E61E681E350075C72A /* knButton.swift */,
+				26FE67E71E681E350075C72A /* knCircleCharacterView.swift */,
+				26FE67E81E681E350075C72A /* knCircleProcessView.swift */,
+				26FE67E91E681E350075C72A /* knCodeView.swift */,
+				26FE67EA1E681E350075C72A /* knContactPicker.swift */,
+				26FE67EB1E681E350075C72A /* knDotLoadingIndicator.swift */,
+				26FE67EC1E681E350075C72A /* knDraggableViewCollection.swift */,
+				26FE67ED1E681E350075C72A /* knExpandTextField.swift */,
+				26FE67EE1E681E350075C72A /* knImageSlideShow.swift */,
+				26FE67EF1E681E350075C72A /* knPageViewController.swift */,
+				26FE67F01E681E350075C72A /* knRippleAnimationView.swift */,
+				26FE67F11E681E350075C72A /* knScrollView.swift */,
+				26FE67F21E681E350075C72A /* knShimmerView.swift */,
+				26FE67F31E681E350075C72A /* knStretchingHeaderTableView.swift */,
+				26FE67F41E681E350075C72A /* knTagView.swift */,
+				26FE67F51E681E350075C72A /* knTransparentTextField.swift */,
+				26FE67F61E681E350075C72A /* knTwoCollumnsCollectionViewLayout.swift */,
+				26FE67F71E681E350075C72A /* knUnderlineTextField.swift */,
+				26FE67F81E681E350075C72A /* knViewBase.swift */,
+				26FE67F91E681E350075C72A /* kStackThreeView.swift */,
+				26FE67FA1E681E350075C72A /* MIDatePicker.swift */,
+				26FE67FB1E681E350075C72A /* RSKCollectionViewRetractableFirstItemLayout.swift */,
+				26FE67FC1E681E350075C72A /* SnakePageControl.swift */,
+				26FE67FD1E681E350075C72A /* TransitionSubmitButton.swift */,
+			);
+			path = Control;
+			sourceTree = "<group>";
+		};
+		26FE67FE1E681E350075C72A /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				26FE67FF1E681E350075C72A /* knNSDate.swift */,
+				26FE68001E681E350075C72A /* knString.swift */,
+				26FE68011E681E350075C72A /* knUIApplication.swift */,
+				26FE68021E681E350075C72A /* knUIButton.swift */,
+				26FE68031E681E350075C72A /* knUIColor.swift */,
+				26FE68041E681E350075C72A /* knUIExtension.swift */,
+				26FE68051E681E350075C72A /* knUIImage.swift */,
+				26FE68061E681E350075C72A /* knUINavigationController.swift */,
+				26FE68071E681E350075C72A /* knUIScrollView.swift */,
+				26FE68081E681E350075C72A /* knUISearchBar.swift */,
+				26FE68091E681E350075C72A /* knUITableView.swift */,
+				26FE680A1E681E350075C72A /* knUITextField.swift */,
+				26FE680B1E681E350075C72A /* knUITextView.swift */,
+				26FE680C1E681E350075C72A /* knUIView.swift */,
+				26FE680D1E681E350075C72A /* knUIViewController.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		26FE680E1E681E350075C72A /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				26FE680F1E681E350075C72A /* knScreenSize.swift */,
+				26FE68101E681E350075C72A /* SafeJsonObject.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		26FE67D21E681E210075C72A /* knCollection */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 26FE67DC1E681E210075C72A /* Build configuration list for PBXNativeTarget "knCollection" */;
+			buildPhases = (
+				26FE67CF1E681E210075C72A /* Sources */,
+				26FE67D01E681E210075C72A /* Frameworks */,
+				26FE67D11E681E210075C72A /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = knCollection;
+			productName = knCollection;
+			productReference = 26FE67D31E681E210075C72A /* libknCollection.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		26FE67CB1E681E210075C72A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "Ky Nguyen";
+				TargetAttributes = {
+					26FE67D21E681E210075C72A = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = YM62LBZ4XN;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 26FE67CE1E681E210075C72A /* Build configuration list for PBXProject "knCollection" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 26FE67CA1E681E210075C72A;
+			productRefGroup = 26FE67D41E681E210075C72A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				26FE67D21E681E210075C72A /* knCollection */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		26FE67CF1E681E210075C72A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				26FE67D81E681E210075C72A /* knCollection.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		26FE67DA1E681E210075C72A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		26FE67DB1E681E210075C72A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		26FE67DD1E681E210075C72A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = YM62LBZ4XN;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		26FE67DE1E681E210075C72A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = YM62LBZ4XN;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		26FE67CE1E681E210075C72A /* Build configuration list for PBXProject "knCollection" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				26FE67DA1E681E210075C72A /* Debug */,
+				26FE67DB1E681E210075C72A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		26FE67DC1E681E210075C72A /* Build configuration list for PBXNativeTarget "knCollection" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				26FE67DD1E681E210075C72A /* Debug */,
+				26FE67DE1E681E210075C72A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 26FE67CB1E681E210075C72A /* Project object */;
+}
