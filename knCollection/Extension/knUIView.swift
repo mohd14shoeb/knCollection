@@ -167,11 +167,17 @@ extension UIView {
     }
     
     @discardableResult
-    public func width(toDimension dimension: NSLayoutDimension, multiplier: CGFloat = 1) -> NSLayoutConstraint {
-        let constraint = widthAnchor.constraint(equalTo: dimension, multiplier: multiplier)
+    public func width(toDimension dimension: NSLayoutDimension, multiplier: CGFloat = 1, constant: CGFloat = 0) -> NSLayoutConstraint {
+        let constraint = widthAnchor.constraint(equalTo: dimension, multiplier: multiplier, constant: constant)
         constraint.isActive = true
         return constraint
     }
+    
+    @discardableResult
+    public func square() {
+        widthAnchor.constraint(equalTo: heightAnchor, multiplier: 1, constant: 0).isActive = true 
+    }
+    
     
     @discardableResult
     public func width(toView view: UIView, multiplier: CGFloat = 1) -> NSLayoutConstraint {
