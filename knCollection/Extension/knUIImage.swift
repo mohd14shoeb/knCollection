@@ -75,7 +75,6 @@ extension UIImage {
     
     /**
      Scale image to new size without keeping ratio
-     @param bar Consectetur adipisicing elit
      */
     
     func scale(to newSize:CGSize) -> UIImage {
@@ -85,6 +84,20 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return result
     }
+    
+    func saveImage(name: String){
+        let fileManager = FileManager.default
+        let path = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(name)
+        let imageData = UIImagePNGRepresentation(self)
+        fileManager.createFile(atPath: path as String, contents: imageData, attributes: nil)
+    }
+    
+    static func get(name: String) -> UIImage? {
+        let directory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString
+        let path = directory.appendingPathComponent(name)
+        return UIImage(contentsOfFile: path)
+    }
+    
     func resize(toWidth width: CGFloat, compressionQuality quality: CGFloat = 0.5) -> UIImage {
         
         let newSize = CGSize(width: width, height: CGFloat(ceil(width / size.width * size.height)))

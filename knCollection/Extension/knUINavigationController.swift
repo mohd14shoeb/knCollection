@@ -20,7 +20,16 @@ extension UINavigationController {
         setNavigationBarHidden(scrollView.contentOffset.y > 24, animated: true)
     }
     
-    func fillNavigationBar(withColor colors: [CGColor],
+    func changeTitleFont(_ font: UIFont, color: UIColor = .white) {
+        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: color, NSFontAttributeName: font]
+    }
+    
+    func fillNavigationBar(with color: UIColor) {
+        navigationBar.barTintColor = color
+        navigationBar.tintColor = .white
+    }
+    
+    func fillNavigationBar(withColors colors: [CGColor],
                            startPoint: CGPoint = CGPoint(x: 0, y: 0),
                            endPoint: CGPoint = CGPoint(x: 1, y: 1)) {
         

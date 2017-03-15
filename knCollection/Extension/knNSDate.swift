@@ -105,32 +105,65 @@ extension Date {
         self.init(timeInterval:0, since:d!)
     }
     
-    func yearsFrom(_ date:Date) -> Int{
-        return (Calendar.current as NSCalendar).components(.year, from: date, to: self, options: []).year!
-    }
-
-    func monthsFrom(_ date:Date) -> Int{
-        return (Calendar.current as NSCalendar).components(.month, from: date, to: self, options: []).month!
+    static var currentYear: Int {
+        get {
+            return Calendar.current.component(.year, from: Date())
+        }
     }
     
-    func weeksFrom(_ date:Date) -> Int{
-        return (Calendar.current as NSCalendar).components(.weekOfYear, from: date, to: self, options: []).weekOfYear!
+    static var currentMonth: Int {
+        get {
+            return Calendar.current.component(.month, from: Date())
+        }
     }
     
-    func daysFrom(_ date:Date) -> Int{
-        return (Calendar.current as NSCalendar).components(.day, from: date, to: self, options: []).day!
+    static var currentDay: Int {
+        get {
+            return Calendar.current.component(.day, from: Date())
+        }
     }
     
-    func hoursFrom(_ date:Date) -> Int{
-        return (Calendar.current as NSCalendar).components(.hour, from: date, to: self, options: []).hour!
+    static var currentHour: Int {
+        get {
+            return Calendar.current.component(.hour, from: Date())
+        }
     }
     
-    func minutesFrom(_ date:Date) -> Int{
-        return (Calendar.current as NSCalendar).components(.minute, from: date, to: self, options: []).minute!
+    static var currentMinute: Int {
+        get {
+            return Calendar.current.component(.minute, from: Date())
+        }
     }
     
-    func secondsFrom(_ date:Date) -> Int{
-        return (Calendar.current as NSCalendar).components(.second, from: date, to: self, options: []).second!
+    
+    var year: Int {
+        get {
+            return Calendar.current.component(.year, from: self)
+        }
+    }
+    
+    var month: Int {
+        get {
+            return Calendar.current.component(.month, from: self)
+        }
+    }
+    
+    var day: Int {
+        get {
+            return Calendar.current.component(.day, from: self)
+        }
+    }
+    
+    var hour: Int {
+        get {
+            return Calendar.current.component(.hour, from: self)
+        }
+    }
+    
+    var minute: Int {
+        get {
+            return Calendar.current.component(.minute, from: self)
+        }
     }
     
     /**

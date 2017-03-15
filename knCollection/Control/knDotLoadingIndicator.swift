@@ -26,6 +26,10 @@ class knDotLoadingIndicator: UIView {
         }
     }
     
+    convenience init() {
+        self.init(frame: .zero)
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupView()
