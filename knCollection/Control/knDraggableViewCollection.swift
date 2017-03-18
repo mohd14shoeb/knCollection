@@ -59,7 +59,7 @@ class knDraggableViewCollection: UIView, knDraggableViewDelegate {
     }
     
     func reloadView() {
-        removeAllSubviews()
+        clearSubviews()
         onScreenCards = []
         cardsLoadedIndex = 0
         loadCards()
