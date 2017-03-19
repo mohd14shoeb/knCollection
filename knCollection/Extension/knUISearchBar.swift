@@ -16,7 +16,7 @@ extension UISearchBar {
         return element
     }
     
-    func setTextFieldColor(color: UIColor) {
+    func setTextFieldBackgroundColor(_ color: UIColor) {
         
         if let textField = getViewElement(type: UITextField.self) {
             switch searchBarStyle {
@@ -28,5 +28,10 @@ extension UISearchBar {
                 textField.backgroundColor = color
             }
         }
+    }
+    
+    func setTextColor(_ color: UIColor) {
+        let textField = value(forKey: "searchField") as? UITextField
+        textField?.textColor = color
     }
 }
