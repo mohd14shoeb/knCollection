@@ -62,6 +62,11 @@ extension Date {
         return dateFormatter.string(from: self)
     }
     
+    var isToday: Bool {
+        return day == Date.currentDay && month == Date.currentMonth && year == Date.currentYear
+    }
+    
+    
     func startOfMonth() -> Date? {
         let cal: Calendar = Calendar.current
         var comp: DateComponents = (cal as Calendar).dateComponents([.year, .month], from: self)
