@@ -52,6 +52,20 @@ extension Date {
         return "just now"
     }
     
+    func dateFrom(year: Int = 1970, month: Int = 1, day: Int = 1, hour: Int = 0, minute: Int = 0, second: Int = 0) -> Date? {
+        
+        var component = DateComponents()
+        component.year = year
+        component.month = month
+        component.day = day
+        component.hour = hour
+        component.minute = minute
+        component.second = second
+        component.timeZone = TimeZone(abbreviation: "GMT")
+        
+        return Calendar.current.date(from: component)!
+    }
+    
     
     /**
      format NSDate to String formatted "HH:mm - dd/MM/yyyy". Pass another format string to change format
@@ -63,7 +77,7 @@ extension Date {
     }
     
     var isToday: Bool {
-        return day == Date.currentDay && month == Date.currentMonth && year == Date.currentYear
+        return Calendar.current.isDateInToday(self)
     }
     
     
@@ -97,13 +111,13 @@ extension Date {
         
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         dateFormatter.calendar =  Calendar(identifier: Calendar.Identifier.iso8601)
         
         var d = dateFormatter.date(from: iso8601String)
         
         if d == nil {
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ssZ"
         }
         d = dateFormatter.date(from: iso8601String)
         
