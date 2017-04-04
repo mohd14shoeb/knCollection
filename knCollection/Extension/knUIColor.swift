@@ -30,5 +30,9 @@ extension UIColor {
         return UIColor(red: r / 255, green: g / 255, blue: b / 255, alpha: alpha)
     }
     
+    static func color(value: CGFloat) -> UIColor {
+        return UIColor(red: value / 255, green: value / 255, blue: value / 255, alpha: 1)
+    }
+    
 }
 

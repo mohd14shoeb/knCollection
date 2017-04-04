@@ -71,8 +71,6 @@ extension PhotoSelector: UINavigationControllerDelegate, UIImagePickerController
     
     func pickImageFromPhotoLibrary() {
         
-        isStatusBarHidden = false
-        UIApplication.shared.isStatusBarHidden = isStatusBarHidden
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self

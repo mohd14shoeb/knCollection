@@ -17,7 +17,27 @@ protocol fxRecordViewDelegate: class {
     
 }
 
-class fxRecordView: knView {
+class knRecordView: knView {
+    
+    struct knFonts {
+        
+        private init() { }
+        static let mediumFont = UIFont.systemFont(ofSize: 15)
+        
+    }
+    
+    struct knColors {
+        private init() { }
+        
+        static let kn_127 = UIColor.color(value: 127)
+        static let kn_229 = UIColor.color(value: 229)
+        static let kn_241_147_78 = UIColor.color(r: 241, g: 147, b: 78)
+        static let kn_133_189_175 = UIColor.color(r: 133, g: 189, b: 175)
+        static let kn_119_203_189 = UIColor.color(r: 119, g: 203, b: 189)
+        
+    }
+    
+    
     
     fileprivate let howToStart = "Tap & Hold to Record Voice"
     fileprivate let howToCancel = "To cancel, drag your finger off record"
@@ -29,8 +49,8 @@ class fxRecordView: knView {
         
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = fxFont.font(size: fxSize.medium)
-        label.textColor = fxColor.fx_127
+        label.font = knFonts.mediumFont
+        label.textColor = knColors.kn_127
         label.text = "00:00"
         label.numberOfLines = 0
         return label
@@ -42,8 +62,8 @@ class fxRecordView: knView {
         
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = fxFont.font(size: fxSize.medium)
-        label.textColor = fxColor.fx_127
+        label.font = knFonts.mediumFont
+        label.textColor = knColors.kn_127
         label.text = self?.howToStart
         label.numberOfLines = 0
         return label
@@ -56,11 +76,11 @@ class fxRecordView: knView {
         let color = UIColor.white
 
         let button = UIButton()
-        button.backgroundColor = fxColor.fx_241_147_78
+        button.backgroundColor = knColors.kn_241_147_78
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(title, for: .normal)
         button.setTitleColor(color, for: .normal)
-        button.titleLabel?.font = fxFont.font(size: fxSize.medium)
+        button.titleLabel?.font = knFonts.mediumFont
         button.addTarget(self, action: #selector(handleStartRecording), for: .touchDown)
         button.addTarget(self, action: #selector(handleStopRecording), for: .touchUpInside)
         button.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePan)))
@@ -74,7 +94,7 @@ class fxRecordView: knView {
     let cancelColorView: UIView = {
         
         let view = UIView()
-        view.backgroundColor = fxColor.fx_241_147_78
+        view.backgroundColor = knColors.kn_241_147_78
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }() /* cancelColorView */
@@ -83,7 +103,7 @@ class fxRecordView: knView {
        
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = fxColor.fx_229
+        view.backgroundColor = knColors.kn_229
         view.clipsToBounds = true
         return view
         
@@ -100,7 +120,7 @@ class fxRecordView: knView {
         
         let imageName = "micro"
         let iv = UIImageView(image: UIImage(named: imageName)?.changeColor())
-        iv.tintColor = fxColor.fx_133_189_175
+        iv.tintColor = knColors.kn_133_189_175
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFit
         iv.clipsToBounds = true
@@ -116,7 +136,7 @@ class fxRecordView: knView {
         let closeButton = UIButton()
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         closeButton.setImage(UIImage(named: "close")?.changeColor(), for: .normal)
-        closeButton.tintColor = fxColor.fx_119_203_189
+        closeButton.tintColor = knColors.kn_119_203_189
         closeButton.addTarget(self, action: #selector(handleClose), for: .touchUpInside)
 
         topBar.addSubview(circleAnimationView)
@@ -222,7 +242,7 @@ class fxRecordView: knView {
 }
 
 
-extension fxRecordView {
+extension knRecordView {
     
     func close() {
         removeFromSuperview()
@@ -236,7 +256,7 @@ extension fxRecordView {
 
 
 // MARK: Handler and Animation
-extension fxRecordView {
+extension knRecordView {
     
     func handleClose() {
         delegate?.closeRecordView()
@@ -251,7 +271,7 @@ extension fxRecordView {
         func doAnimate() {
             recordButton.setTitle(recording == true ? "Recording..." : "Record", for: .normal)
             descriptionLabel.text = recording == true ? howToCancel : howToStart
-            timingLabel.textColor = recording == true ? fxColor.fx_241_147_78 : fxColor.fx_127
+            timingLabel.textColor = recording == true ? knColors.kn_241_147_78 : knColors.kn_127
             let scale: CGFloat = recording == true ? 0.95 : 1
             recordButton.transform = CGAffineTransform(scaleX: scale, y: scale)
         }
@@ -268,12 +288,12 @@ extension fxRecordView {
 
 
 // MARK: Handle Recording
-extension fxRecordView {
+extension knRecordView {
     
     func setMicroViewAnimate(_ animate: Bool) {
         
         if animate == true {
-            circleAnimationView.backgroundColor = fxColor.fx_241_147_78
+            circleAnimationView.backgroundColor = knColors.kn_241_147_78
             circleAnimationView.transform = CGAffineTransform(scaleX: 1, y: 1)
             microImageView.tintColor = .white
             UIView.animateKeyframes(withDuration: 0.7, delay: 0, options: [.autoreverse, .repeat], animations: {
@@ -284,7 +304,7 @@ extension fxRecordView {
             circleAnimationView.layer.removeAllAnimations()
             circleAnimationView.backgroundColor = .clear
             circleAnimationView.transform = CGAffineTransform(scaleX: 1, y: 1)
-            microImageView.tintColor = fxColor.fx_133_189_175
+            microImageView.tintColor = knColors.kn_133_189_175
         }
     }
     
@@ -333,14 +353,14 @@ extension fxRecordView {
             descriptionLabel.text = readyToCancel
             descriptionLabel.textColor = .white
             recordButton.backgroundColor = .white
-            recordButton.setTitleColor(fxColor.fx_241_147_78, for: .normal)
+            recordButton.setTitleColor(knColors.kn_241_147_78, for: .normal)
         }
         
         func changeUiToNormalState() {
-            recordButton.backgroundColor = fxColor.fx_241_147_78
+            recordButton.backgroundColor = knColors.kn_241_147_78
             recordButton.setTitleColor(.white, for: .normal)
             descriptionLabel.text = howToStart
-            descriptionLabel.textColor = fxColor.fx_127
+            descriptionLabel.textColor = knColors.kn_241_147_78
         }
         
         func changeUiToRecordingState() {
@@ -386,7 +406,7 @@ extension fxRecordView {
 
 
 
-extension fxRecordView: AVAudioPlayerDelegate, AVAudioRecorderDelegate {
+extension knRecordView: AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
         print("Audio Play Decode Error")

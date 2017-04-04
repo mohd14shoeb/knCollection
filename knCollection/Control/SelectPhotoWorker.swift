@@ -8,7 +8,11 @@
 
 import UIKit
 
-class fxSelectPhotoWorker : fxWorker {
+protocol knWorker {
+    func execute()
+}
+
+class fxSelectPhotoWorker : knWorker {
     
     var successResponse : ((UIImage) -> Void)? = nil
     var selectedImage : UIImage?

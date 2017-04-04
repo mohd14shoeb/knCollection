@@ -13,7 +13,7 @@ enum knFileType: String {
     case image, audio
 }
 
-struct knUploadWorker: fxWorker {
+struct knUploadWorker: knWorker {
     
     var api: String
     var params: [String: Any]?

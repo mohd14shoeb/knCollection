@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol fxDateDialogDelegate: class {
+protocol knDateDialogDelegate: class {
     
     func didSelectDate(date: Date)
     
@@ -18,8 +18,28 @@ protocol fxDateDialogDelegate: class {
 
 
 
-class fxDateDialog: UIView {
+class knDateDialog: UIView {
     
+    struct knFonts {
+        
+        private init() { }
+        static let mediumFont = UIFont.systemFont(ofSize: 15)
+        static let smallFont = UIFont.systemFont(ofSize: 12)
+        
+    }
+    
+    struct knColors {
+        private init() { }
+        
+        static let kn_127 = UIColor.color(value: 127)
+        static let kn_229 = UIColor.color(value: 229)
+        static let kn_241_147_78 = UIColor.color(r: 241, g: 147, b: 78)
+        static let kn_133_189_175 = UIColor.color(r: 133, g: 189, b: 175)
+        static let kn_119_203_189 = UIColor.color(r: 119, g: 203, b: 189)
+        
+    }
+
+
     private override init(frame: CGRect) {
         super.init(frame: .zero)
     }
@@ -30,9 +50,9 @@ class fxDateDialog: UIView {
     
     
     
-    weak var delegate: fxDateDialogDelegate?
+    weak var delegate: knDateDialogDelegate?
     
-    static let center = fxDateDialog()
+    static let center = knDateDialog()
     
     lazy var backgroundView: UIView = { [weak self] in
         
@@ -68,9 +88,9 @@ class fxDateDialog: UIView {
             
             let label = UILabel()
             label.translatesAutoresizingMaskIntoConstraints = false
-            label.font = fxFont.font(name: .Texta_Medium, size: fxSize.medium)
+            label.font = knFonts.mediumFont
             label.textColor = .white
-            label.backgroundColor = fxColor.fx_119_203_189
+            label.backgroundColor = knColors.kn_119_203_189
             label.text = "SET APPOINTMENT"
             label.textAlignment = .center
             label.numberOfLines = 0
@@ -80,18 +100,18 @@ class fxDateDialog: UIView {
         let setButton: UIButton = {
             
             let title = "SET APPOINTMENT!"
-            let color = fxColor.fx_127
+            let color = knColors.kn_127
             
             let button = UIButton()
             button.translatesAutoresizingMaskIntoConstraints = false
             button.setTitle(title, for: .normal)
             button.setTitleColor(color, for: .normal)
-            button.titleLabel?.font = fxFont.font(name: .Texta_Medium, size: fxSize.medium)
+            button.titleLabel?.font = knFonts.mediumFont
             
             let separator = UIView()
             separator.translatesAutoresizingMaskIntoConstraints = false
             separator.height(1)
-            separator.backgroundColor = fxColor.fx_119_203_189
+            separator.backgroundColor = knColors.kn_119_203_189
             
             button.addSubview(separator)
             separator.horizontal(toView: button)

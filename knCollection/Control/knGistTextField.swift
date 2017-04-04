@@ -10,6 +10,25 @@ import UIKit
 
 class knGistTextField: UITextField {
     
+    struct knFonts {
+        
+        private init() { }
+        static let mediumFont = UIFont.systemFont(ofSize: 15)
+        static let smallFont = UIFont.systemFont(ofSize: 12)
+        
+    }
+    
+    struct knColors {
+        private init() { }
+        
+        static let kn_127 = UIColor.color(value: 127)
+        static let kn_229 = UIColor.color(value: 229)
+        static let kn_241_147_78 = UIColor.color(r: 241, g: 147, b: 78)
+        static let kn_133_189_175 = UIColor.color(r: 133, g: 189, b: 175)
+        static let kn_119_203_189 = UIColor.color(r: 119, g: 203, b: 189)
+        
+    }
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,8 +50,8 @@ class knGistTextField: UITextField {
        
         let descriptionText = UILabel()
         descriptionText.translatesAutoresizingMaskIntoConstraints = false
-        descriptionText.font = fxFont.font(name: .Texta_Bold, size: fxSize.small)
-        descriptionText.textColor = fxColor.fx_127
+        descriptionText.font = knFonts.smallFont
+        descriptionText.textColor = knColors.kn_127
         descriptionText.isOpaque = true
         descriptionText.backgroundColor = .clear
         return descriptionText
@@ -50,7 +69,7 @@ class knGistTextField: UITextField {
         let underline = UIView()
         underline.isOpaque = true
         underline.translatesAutoresizingMaskIntoConstraints = false
-        underline.backgroundColor = fxColor.fx_127
+        underline.backgroundColor = knColors.kn_127
         addSubview(underline)
         underline.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
         underline.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
@@ -71,7 +90,7 @@ class knGistTextField: UITextField {
         label.alpha = 0
         label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = fxFont.font(size: 13)
+        label.font = knFonts.mediumFont
         label.textColor = .red
         label.text = ""
         label.textAlignment = .right
