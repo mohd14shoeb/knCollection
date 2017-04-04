@@ -22,7 +22,11 @@ class knTableController: UITableViewController {
     
     func registerCells() { }
     
-    
+    func fetchData() { }
+ 
+    deinit {
+        print("Deinit \(NSStringFromClass(type(of: self)))")
+    }
 }
 
 extension knTableController {

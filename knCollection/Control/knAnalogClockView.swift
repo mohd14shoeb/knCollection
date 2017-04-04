@@ -113,7 +113,7 @@ class AnalogClockView: UIView {
 
         labelString.enumerateObjects({ (string, index, stop) in
             
-            let angle = Float(CGFloat(index) * CGFloat(M_PI) * CGFloat(2) / CGFloat(labelString.count) - CGFloat(M_PI_2))
+            let angle = Float(CGFloat(index) * CGFloat(Double.pi) * CGFloat(2) / CGFloat(labelString.count) - CGFloat(Double.pi / 2))
             let x = CGFloat(round(cosf(angle) * Float(radius))) + self.layer.bounds.midX
             let y = CGFloat(round(sinf(angle) * Float(radius))) + self.layer.bounds.midY + 5
             
@@ -167,7 +167,7 @@ class AnalogClockView: UIView {
         else {
             var duration: Double!
             var big_change: Bool {
-                let change = fabs(Double(angle.second - oldAngles.second)) > M_PI_4
+                let change = fabs(Double(angle.second - oldAngles.second)) > Double.pi / 4
                 duration = change ? 0.6 : 0.3
                 animateHandView(secondHand, toAngle: angle.second, duration: duration)
                 return change
@@ -175,11 +175,11 @@ class AnalogClockView: UIView {
             
             performBlockOnMainQueue({ 
                 var duration: Double!
-                var big_change: Bool = fabs(Double(angle.minute - self.oldAngles.minute)) > M_PI_4
+                var big_change: Bool = fabs(Double(angle.minute - self.oldAngles.minute)) > Double.pi / 4
                 duration = big_change ? 0.6 : 0.3;
                 self.animateHandView(self.minuteHand, toAngle: angle.minute, duration: duration)
                 
-                big_change = fabs(Double(angle.hour - self.oldAngles.hour)) > M_PI_4
+                big_change = fabs(Double(angle.hour - self.oldAngles.hour)) > Double.pi / 4
                 duration = big_change ? 0.6 : 0.3;
                 self.animateHandView(self.minuteHand, toAngle: angle.hour, duration: duration)
                 }, afterDelay: 0.05)
@@ -207,7 +207,7 @@ class AnalogClockView: UIView {
         let second = timeComponent.second
         let fractionalHours = CGFloat(hour) + CGFloat(minute!) / 60.0
         
-        let pi2 = CGFloat(M_PI) * 2
+        let pi2 = CGFloat(Double.pi) * 2
         result.hour = pi2 * fractionalHours / 12
         result.minute = pi2 * CGFloat(minute!) / 60.0
         result.second = pi2 * CGFloat(second!) / 60.0

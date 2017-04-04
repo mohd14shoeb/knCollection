@@ -59,8 +59,8 @@ class knCircleProgressView: UIView {
     
     fileprivate func createProcessPath(radius: CGFloat) -> UIBezierPath {
         
-        let startAngle = CGFloat(-M_PI / 2)
-        let endAngle = CGFloat(3 * M_PI / 2)
+        let startAngle = CGFloat(-Double.pi / 2)
+        let endAngle = CGFloat(3 * Double.pi / 2)
         let width = bounds.width
         let height = bounds.height
         let modelCenter = CGPoint(x: width / 2, y: height / 2)

@@ -151,12 +151,17 @@ extension UIView {
         return constraint
     }
     
-    @discardableResult
+    
     public func size(_ size: CGSize) {
         
         widthAnchor.constraint(equalToConstant: size.width).isActive = true
         heightAnchor.constraint(equalToConstant: size.height).isActive = true
         
+    }
+    
+    public func size(toView view: UIView, constant: CGFloat = 0) {
+        widthAnchor.constraint(equalTo: view.widthAnchor, constant: constant).isActive = true
+        heightAnchor.constraint(equalTo: view.heightAnchor, constant: constant).isActive = true
     }
     
     @discardableResult
@@ -173,7 +178,7 @@ extension UIView {
         return constraint
     }
     
-    @discardableResult
+    
     public func square() {
         widthAnchor.constraint(equalTo: heightAnchor, multiplier: 1, constant: 0).isActive = true 
     }
@@ -221,6 +226,11 @@ extension UIView {
         return constraint
     }
     
+    public func center(toView view: UIView, constant: CGFloat = 0){
+        centerX(toView: view, constant: constant)
+        centerY(toView: view, constant: constant)
+    }
+    
     @discardableResult
     public func centerY(toView view: UIView, constant: CGFloat = 0) -> NSLayoutConstraint {
         let constraint = centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: constant)
@@ -236,28 +246,24 @@ extension UIView {
     }
     
     
-    @discardableResult
     public func horizontal(toView view: UIView, constant: CGFloat = 0) {
         
         leftAnchor.constraint(equalTo: view.leftAnchor, constant: constant).isActive = true
         rightAnchor.constraint(equalTo: view.rightAnchor, constant: -constant).isActive = true
     }
     
-    @discardableResult
     public func horizontal(toView view: UIView, leftPadding: CGFloat, rightPadding: CGFloat) {
         
         leftAnchor.constraint(equalTo: view.leftAnchor, constant: leftPadding).isActive = true
         rightAnchor.constraint(equalTo: view.rightAnchor, constant: rightPadding).isActive = true
     }
     
-    @discardableResult
     public func vertical(toView view: UIView, constant: CGFloat = 0) {
         
         topAnchor.constraint(equalTo: view.topAnchor, constant: constant).isActive = true
         bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -constant).isActive = true
     }
     
-    @discardableResult
     public func vertical(toView view: UIView, topPadding: CGFloat, bottomPadding: CGFloat) {
         
         topAnchor.constraint(equalTo: view.topAnchor, constant: topPadding).isActive = true

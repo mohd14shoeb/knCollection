@@ -39,12 +39,12 @@ class knAnimationScrollView: UIScrollView {
     
     func DEGREES_TO_RADIANS(_ angle: CGFloat) -> CGFloat {
         
-        return (angle) / 180.0 * CGFloat(M_PI)
+        return (angle) / 180.0 * CGFloat(Double.pi)
     }
     
     func RADIANS_TO_DEGREES(_ radians: CGFloat) -> CGFloat {
         
-        return (radians) * (180.0 / CGFloat(M_PI))
+        return (radians) * (180.0 / CGFloat(Double.pi))
     }
     
     func commonInit() {

@@ -15,7 +15,7 @@ extension UIButton {
         clipsToBounds = true
         CATransaction.begin()
         
-        let startPath = UIBezierPath(arcCenter: position, radius: 1, startAngle: 0, endAngle: CGFloat(M_PI) * 2, clockwise: true)
+        let startPath = UIBezierPath(arcCenter: position, radius: 1, startAngle: 0, endAngle: CGFloat(Double.pi) * 2, clockwise: true)
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = startPath.cgPath
         shapeLayer.fillColor = UIColor.lightGray.withAlphaComponent(0.5).cgColor
@@ -26,7 +26,7 @@ extension UIButton {
             self?.clipsToBounds = false
         })
         
-        let endPath = UIBezierPath(arcCenter: position, radius: frame.size.width * 2, startAngle: 0, endAngle: CGFloat(M_PI) * 2, clockwise: true)
+        let endPath = UIBezierPath(arcCenter: position, radius: frame.size.width * 2, startAngle: 0, endAngle: CGFloat(Double.pi) * 2, clockwise: true)
         let animation = CABasicAnimation(keyPath: "path")
         animation.toValue = endPath.cgPath
         animation.duration = 0.4

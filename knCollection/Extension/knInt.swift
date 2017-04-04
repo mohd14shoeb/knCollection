@@ -9,7 +9,7 @@
 import UIKit
 
 public extension UInt32 {
-    public static func random(lower: UInt32 = min, upper: UInt32 = max) -> UInt32 {
-        return arc4random_uniform(upper - lower) + lower
+    public static func random(lower: UInt32 = min, upper: UInt32 = max) -> Int {
+        return Int(arc4random_uniform(upper - lower) + lower)
     }
 }

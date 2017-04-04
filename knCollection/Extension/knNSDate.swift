@@ -52,7 +52,7 @@ extension Date {
         return "just now"
     }
     
-    func dateFrom(year: Int = 1970, month: Int = 1, day: Int = 1, hour: Int = 0, minute: Int = 0, second: Int = 0) -> Date? {
+    static func dateFrom(year: Int = 1970, month: Int = 1, day: Int = 1, hour: Int = 0, minute: Int = 0, second: Int = 0) -> Date? {
         
         var component = DateComponents()
         component.year = year
@@ -107,17 +107,35 @@ extension Date {
         return formatter.string(from: self)
     }
     
+    init(localTimeFromIso8601String dateString:String) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.calendar =  Calendar(identifier: Calendar.Identifier.iso8601)
+        
+        var d = dateFormatter.date(from: dateString)
+        
+        if d == nil {
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+        }
+        d = dateFormatter.date(from: dateString)
+        
+        self.init(timeInterval:0, since:d!)
+
+    }
+    
     init(iso8601String:String) {
         
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         dateFormatter.calendar =  Calendar(identifier: Calendar.Identifier.iso8601)
         
         var d = dateFormatter.date(from: iso8601String)
         
         if d == nil {
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ssZ"
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
         }
         d = dateFormatter.date(from: iso8601String)
         
@@ -191,9 +209,17 @@ extension Date {
     func toString(_ format: String = "MM/dd/yyyy") -> String {
         
         let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = format
         let dateString = dateFormatter.string(from: self)
         return dateString
+    }
+    
+    func currentTimeZoneDate(format: String = "yyyy-MM-dd HH:mm:ss") -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: self)
     }
     
     func toISO8601String() -> String {
@@ -210,29 +236,35 @@ extension Date {
         var interval = (Calendar.current as NSCalendar).components(.year, from: self, to: Date(), options: []).year
         
         if interval! > 0 {
-            return interval == 1 ? "\(interval) year" : "\(interval) years"
+            return interval == 1 ? "\(String(describing: interval)) year" : "\(String(describing: interval)) years"
         }
         
         interval = (Calendar.current as NSCalendar).components(.month, from: self, to: Date(), options: []).month
         if interval! > 0 {
-            return interval == 1 ? "\(interval) month" : "\(interval) months"
+            return interval == 1 ? "\(String(describing: interval)) month" : "\(String(describing: interval)) months"
         }
         
         interval = (Calendar.current as NSCalendar).components(.day, from: self, to: Date(), options: []).day
         if interval! > 0 {
-            return interval == 1 ? "\(interval) day" : "\(interval) days"
+            return interval == 1 ? "\(String(describing: interval)) day" : "\(String(describing: interval)) days"
         }
         
         interval = (Calendar.current as NSCalendar).components(.hour, from: self, to: Date(), options: []).hour
         if interval! > 0 {
-            return interval == 1 ? "\(interval) hour" : "\(interval) hours"
+            return interval == 1 ? "\(String(describing: interval)) hour" : "\(String(describing: interval)) hours"
         }
         
         interval = (Calendar.current as NSCalendar).components(.minute, from: self, to: Date(), options: []).minute
         if interval! > 0 {
-            return interval == 1 ? "\(interval) minute" : "\(interval) minutes"
+            return interval == 1 ? "\(String(describing: interval)) minute" : "\(String(describing: interval)) minutes"
         }
         
         return "a moment ago"
+    }
+    
+    func dayOfTheWeek() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE"
+        return dateFormatter.string(from: self)
     }
 }

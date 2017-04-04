@@ -21,6 +21,11 @@ class knCollectionController: UICollectionViewController {
     
     func setupView() { }
     
+    func fetchData() { }
+    
+    deinit {
+        print("Deinit \(NSStringFromClass(type(of: self)))")
+    }
 }
 
 extension knCollectionController: UICollectionViewDelegateFlowLayout {

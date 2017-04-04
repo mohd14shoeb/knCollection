@@ -36,13 +36,13 @@ class knRippleAnimationView: UIView, CAAnimationDelegate {
         let smallestCircle = UIBezierPath(arcCenter: center,
                                        radius: CGFloat(3),
                                        startAngle: CGFloat(0),
-                                       endAngle:CGFloat(M_PI * 2),
+                                       endAngle:CGFloat(Double.pi * 2),
                                        clockwise: true)
         
         let biggestCircle = UIBezierPath(arcCenter: center,
                                          radius: CGFloat(80),
                                          startAngle: CGFloat(0),
-                                         endAngle:CGFloat(M_PI * 2),
+                                         endAngle:CGFloat(Double.pi * 2),
                                          clockwise: true)
         
         let shapeLayer = createShapeWhenNoAnimation(fromPath: smallestCircle)
@@ -84,7 +84,7 @@ class knRippleAnimationView: UIView, CAAnimationDelegate {
         animationGroup.beginTime = beginTime
         animationGroup.animations = animations
         animationGroup.duration = 2.76
-        animationGroup.repeatCount = FLT_MAX
+        animationGroup.repeatCount = .greatestFiniteMagnitude
         animationGroup.delegate = self
         animationGroup.isRemovedOnCompletion = false
         animationGroup.fillMode = kCAFillModeForwards

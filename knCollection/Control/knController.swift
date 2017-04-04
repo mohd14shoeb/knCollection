@@ -11,13 +11,13 @@ class knController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupView()
-        
-        fetchData()
     }
     
     func setupView() { }
     
     func fetchData() { }
+    
+    deinit {
+        print("Deinit \(NSStringFromClass(type(of: self)))")
+    }
 }
