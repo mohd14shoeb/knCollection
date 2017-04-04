@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-protocol fxRecordViewDelegate: class {
+protocol knRecordViewDelegate: class {
     
     func didFinishRecording(recordFileUrl: URL)
     
@@ -56,7 +56,7 @@ class knRecordView: knView {
         return label
     }() /* timingLabel */
     
-    weak var delegate: fxRecordViewDelegate?
+    weak var delegate: knRecordViewDelegate?
     
     fileprivate lazy var descriptionLabel: UILabel = { [weak self] in
         
