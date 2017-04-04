@@ -13,3 +13,27 @@ func run(_ action: @escaping (Void) -> Void, after second: Double) {
         action()
     }
 }
+
+
+let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
+
+var statusBarStyle = UIStatusBarStyle.lightContent {
+    
+    didSet {
+        UIApplication.shared.statusBarStyle = statusBarStyle
+    }
+}
+
+var isStatusBarHidden = false {
+    didSet {
+        UIApplication.shared.isStatusBarHidden = isStatusBarHidden
+    }
+}
+
+func makeCall(to number: String) {
+    
+    guard let phoneUrl = URL(string: "tel://\(number)") else { return }
+    guard UIApplication.shared.canOpenURL(phoneUrl) else { return }
+    UIApplication.shared.open(phoneUrl)
+}
