@@ -8,9 +8,6 @@
 
 import UIKit
 
-protocol knWorker {
-    func execute()
-}
 
 class fxSelectPhotoWorker : knWorker {
     

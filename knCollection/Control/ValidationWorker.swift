@@ -9,28 +9,6 @@
 import Foundation
 
 
-enum knErrorCode : String {
-    case loginFail
-    case invalidEmail
-    case invalidPassword
-    case notFound
-    case timeOut
-    case serverError
-    case empty
-    case emailExist
-    case weakPassword
-    case notSure
-    case facebookCancel
-    case cantGetUploadedUrl
-    case uploadFail
-}
-
-struct knError {
-    
-    var code: knErrorCode?
-    var message: String?
-}
-
 struct knValidationWorker {
     
     var responseToResult: ((knError?) -> Void)?
