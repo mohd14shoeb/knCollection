@@ -150,22 +150,22 @@ class knRecordView: knView {
 
         microImageView.size(CGSize(width: 12, height: 12))
         microImageView.vertical(toView: topBar)
-        microImageView.left(toView: topBar, constant: 16)
+        microImageView.left(toView: topBar, space: 16)
         
         closeButton.size(CGSize(width: 44, height: 44))
         closeButton.vertical(toView: topBar)
-        closeButton.right(toView: topBar, constant: -16)
+        closeButton.right(toView: topBar, space: -16)
         
         timingLabel.center(toView: topBar)
 
         recordBar.addSubview(recordButton)
         recordBar.addSubview(descriptionLabel)
         
-        descriptionLabel.top(toView: recordBar, constant: 8)
+        descriptionLabel.top(toView: recordBar, space: 8)
         descriptionLabel.centerX(toView: recordBar)
         
         recordButton.centerX(toView: recordBar)
-        recordButton.centerY(toView: recordBar, constant: 8)
+        recordButton.centerY(toView: recordBar, space: 8)
         recordButton.size(CGSize(width: 90, height: 90))
         recordButton.createRoundCorner(45)
         addSubview(topBar)
@@ -179,7 +179,7 @@ class knRecordView: knView {
         
         recordBar.insertSubview(cancelColorView, belowSubview: recordButton)
         cancelColorView.createRoundCorner(35)
-        cancelColorView.size(toView: recordButton, constant: -20)
+        cancelColorView.size(toView: recordButton, greater: -20)
         cancelColorView.center(toView: recordButton)
         
         

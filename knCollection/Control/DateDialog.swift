@@ -159,8 +159,8 @@ class knDateDialog: UIView {
         backgroundView.vertical(toView: view)
         backgroundView.horizontal(toView: view)
         
-        messageBoxView.horizontal(toView: view, constant: 24)
-        messageBoxView.centerY(toView: view, constant: -32)
+        messageBoxView.horizontal(toView: view, space: 24)
+        messageBoxView.centerY(toView: view, space: -32)
         
         messageBoxView.layer.opacity = 0
         messageBoxView.layer.transform = CATransform3DMakeScale(1.4, 1.4, 1.4)
