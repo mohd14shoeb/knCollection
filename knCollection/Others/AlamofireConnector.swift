@@ -12,33 +12,31 @@ import Alamofire
 struct AlamofireConnector {
     
     
-    func get(_ api: String,
-             params: [String: Any]?,
+    func get(_ api: URL,
+             params: [String: Any]? = nil,
+             header: [String: String]? = nil,
              success: @escaping (_ result: AnyObject) -> Void,
-             fail: ((_ error: fxError) -> Void)?) {
+             fail: ((_ error: knError) -> Void)?) {
         
-        
-        request(withApi: api, method: .get, params: params, success: success, fail: fail)
+        request(withApi: api, method: .get, params: params, header: header, success: success, fail: fail)
     }
     
-    func request(withApi api: String,
+    private func request(withApi api: URL,
                  method: HTTPMethod,
-                 params: [String: Any]?,
+                 params: [String: Any]? = nil,
+                 header: [String: String]? = nil,
                  success: @escaping (_ result: AnyObject) -> Void,
-                 fail: ((_ error: fxError) -> Void)?) {
+                 fail: ((_ error: knError) -> Void)?) {
         
-        let apiUrl = api.contains("http") ? api : fxServiceSetting.baseApi + api
-        let url = URL(string: apiUrl)!
-        let headers = fxDatastore.store.header
 
-        Alamofire.request(url, method: method, parameters: params, encoding: URLEncoding.httpBody, headers: headers)
+        Alamofire.request(api, method: method, parameters: params, encoding: URLEncoding.httpBody, headers: header)
         .responseJSON { (response) in
             
             print("===Request: \(String(describing: response.request?.url))")
             
             if self.isPhysicalFailure(response: response) {
                 print(response)
-                fail?(fxError(code: .timeOut, message: response.result.error!.localizedDescription))
+                fail?(knError(code: .timeOut, message: response.result.error!.localizedDescription))
                 print("===Error: \(response.result.error!.localizedDescription)")
                 return
             }
@@ -54,43 +52,46 @@ struct AlamofireConnector {
         }
     }
     
-    func isPhysicalFailure(response: DataResponse<Any>) -> Bool {
+    private func isPhysicalFailure(response: DataResponse<Any>) -> Bool {
         return response.result.error != nil
     }
     
-    func isLogicalFailure(response: AnyObject) -> fxError? {
+    private func isLogicalFailure(response: AnyObject) -> knError? {
 
         let error = JSONParser.getBool(forKey: "error", inObject: response)
         if error == true {
             let message = JSONParser.getString(forKey: "msg", inObject: response)
-            return fxError(code: .notSure, message: message)
+            return knError(code: .notSure, message: message)
         }
         return nil
     }
     
-    func put(_ api: String,
-             params: [String: Any]?,
+    func put(_ api: URL,
+             params: [String: Any]? = nil,
+             header: [String: String]? = nil,
              success: @escaping (_ result: AnyObject) -> Void,
-             fail: ((_ error: fxError) -> Void)?) {
+             fail: ((_ error: knError) -> Void)?) {
         
-        request(withApi: api, method: .put, params: params, success: success, fail: fail)
+        request(withApi: api, method: .put, params: params, header: header, success: success, fail: fail)
     }
     
-    func post(_ api: String,
-              params: [String: Any]?,
+    func post(_ api: URL,
+              params: [String: Any]? = nil,
+              header: [String: String]? = nil,
               success: @escaping (_ result: AnyObject) -> Void,
-              fail: ((_ error: fxError) -> Void)?) {
+              fail: ((_ error: knError) -> Void)?) {
         
-        request(withApi: api, method: .post, params: params, success: success, fail: fail)
+        request(withApi: api, method: .post, params: params, header: header, success: success, fail: fail)
     }
     
     
-    func delete(_ api: String,
-                params: [String: Any]?,
+    func delete(_ api: URL,
+                params: [String: Any]? = nil,
+                header: [String: String]? = nil,
                 success: @escaping (_ result: AnyObject) -> Void,
-                fail: ((_ error: fxError) -> Void)?) {
+                fail: ((_ error: knError) -> Void)?) {
         
-        request(withApi: api, method: .delete, params: params, success: success, fail: fail)
+        request(withApi: api, method: .delete, params: params, header: header, success: success, fail: fail)
     }
     
     

@@ -8,6 +8,10 @@
 
 import UIKit
 
+enum knMessageType: String {
+    case audio, image, text
+}
+
 protocol knSendMessageDelegate: class {
     
     func sendMessage(_ message: String, type: knMessageType)
