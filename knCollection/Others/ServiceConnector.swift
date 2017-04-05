@@ -14,12 +14,12 @@ struct ServiceConnector {
     
     static fileprivate var connector = AlamofireConnector()
     
-    static private func getHeader() -> [String: String]? {
+    static func getHeader() -> [String: String]? {
         
         return nil
     }
     
-    static private func getUrl(from api: String) -> URL {
+    static func getUrl(from api: String) -> URL {
         
         let apiUrl = api.contains("http") ? api : ogeSetting.baseUrl + api
         return URL(string: apiUrl)!
