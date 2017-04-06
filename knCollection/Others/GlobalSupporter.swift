@@ -35,5 +35,9 @@ func makeCall(to number: String) {
     
     guard let phoneUrl = URL(string: "tel://\(number)") else { return }
     guard UIApplication.shared.canOpenURL(phoneUrl) else { return }
-    UIApplication.shared.open(phoneUrl)
+    if #available(iOS 10.0, *) {
+        UIApplication.shared.open(phoneUrl)
+    } else {
+        UIApplication.shared.openURL(phoneUrl)
+    }
 }
