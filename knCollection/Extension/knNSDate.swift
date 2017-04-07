@@ -124,6 +124,18 @@ extension Date {
 
     }
     
+    init(dateString: String, format: String) {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        dateFormatter.dateFormat = format
+        dateFormatter.calendar =  Calendar(identifier: Calendar.Identifier.iso8601)
+        
+        let d = dateFormatter.date(from: dateString)
+        self.init(timeInterval:0, since:d!)
+    }
+    
     init(iso8601String:String) {
         
         let dateFormatter = DateFormatter()
