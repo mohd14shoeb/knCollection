@@ -8,6 +8,14 @@
 
 import UIKit
 
+var screenWidth: CGFloat {
+    return UIScreen.main.bounds.width
+}
+
+var screenHeight: CGFloat {
+    return UIScreen.main.bounds.height
+}
+
 func run(_ action: @escaping (Void) -> Void, after second: Double) {
     DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(Int(second * 1000))) {
         action()

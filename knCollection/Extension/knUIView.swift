@@ -38,10 +38,14 @@ extension UIView {
         }
     }
     
-    func setupGradientLayer(colors: [UIColor], startPoint: CGPoint = CGPoint(x: 0, y: 0), endPoint: CGPoint = CGPoint(x: 1, y: 1)) {
+    func setupGradientLayer(colors: [UIColor],
+                            size: CGSize = .zero,
+                            startPoint: CGPoint = CGPoint(x: 0, y: 0), endPoint: CGPoint = CGPoint(x: 1, y: 1)) {
         
         let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = CGRect(x: 0, y: 0, width: bounds.size.width, height: bounds.size.height)
+        gradientLayer.frame = CGRect(x: 0, y: 0,
+                                     width: size.width == 0 ? bounds.size.width : size.width,
+                                     height: size.height == 0 ? bounds.size.height : size.height)
         gradientLayer.colors = colors.map({ (uiColor) -> CGColor in
             return uiColor.cgColor
         })
@@ -49,6 +53,20 @@ extension UIView {
         gradientLayer.endPoint = endPoint
         
         layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
+    func setGradientBorder(colors: [UIColor], width: CGFloat = 1) {
+        let gradient = CAGradientLayer()
+        gradient.frame =  CGRect(origin: .zero, size: frame.size)
+        gradient.colors = colors.map({ return $0.cgColor })
+        
+        let shape = CAShapeLayer()
+        shape.lineWidth = 3
+        shape.path = UIBezierPath(rect: bounds).cgPath
+        shape.strokeColor = UIColor.black.cgColor
+        shape.fillColor = UIColor.clear.cgColor
+        gradient.mask = shape
+        layer.addSublayer(gradient)
     }
     
     func addConstraint(attribute: NSLayoutAttribute, equalTo view: UIView, toAttribute: NSLayoutAttribute, multiplier: CGFloat = 1, constant: CGFloat = 0) -> NSLayoutConstraint {
@@ -128,6 +146,15 @@ extension UIView {
     }
     
     @discardableResult
+    public func topLeft(toView view: UIView, top: CGFloat = 0, left: CGFloat = 0) -> [NSLayoutConstraint] {
+        
+        let topConstraint = self.top(toView: view, space: top)
+        let leftConstraint = self.left(toView: view, space: left)
+    
+        return [topConstraint, leftConstraint]
+    }
+    
+    @discardableResult
     public func bottom(toAnchor anchor: NSLayoutYAxisAnchor, space: CGFloat = 0) -> NSLayoutConstraint {
         let constraint = bottomAnchor.constraint(equalTo: anchor, constant: space)
         constraint.isActive = true
@@ -137,6 +164,22 @@ extension UIView {
     @discardableResult
     public func bottom(toView view: UIView, space: CGFloat = 0) -> NSLayoutConstraint {
         let constraint = bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: space)
+        constraint.isActive = true
+        return constraint
+    }
+    
+    @discardableResult
+    public func verticalSpacing(toView view: UIView, space: CGFloat = 0) -> NSLayoutConstraint {
+        
+        let constraint = topAnchor.constraint(equalTo: view.bottomAnchor, constant: space)
+        constraint.isActive = true
+        return constraint
+    }
+    
+    @discardableResult
+    public func horizontalSpacing(toView view: UIView, space: CGFloat = 0) -> NSLayoutConstraint {
+        
+        let constraint = rightAnchor.constraint(equalTo: view.leftAnchor, constant: -space)
         constraint.isActive = true
         return constraint
     }
@@ -154,6 +197,10 @@ extension UIView {
         heightAnchor.constraint(equalTo: view.heightAnchor, constant: greater).isActive = true
     }
     
+    public func square(edge: CGFloat) {
+        
+        size(CGSize(width: edge, height: edge))
+    }
     
     public func square() {
         widthAnchor.constraint(equalTo: heightAnchor, multiplier: 1, constant: 0).isActive = true
@@ -269,6 +316,20 @@ extension UIView {
         bottom(toView: view, space: -space.bottom)
     }
     
+    
+    
+}
+
+
+
+
+
+
+extension UIEdgeInsets {
+    
+    init(space: CGFloat) {
+        self.init(top: space, left: space, bottom: space, right: space)
+    }
     
     
 }
