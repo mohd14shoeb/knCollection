@@ -9,7 +9,7 @@
 import UIKit
 
 
-protocol PhotoSelectorDelegate: class {
+protocol knPhotoSelectorDelegate: class {
     
     func present(_ controller: UIViewController)
     
@@ -17,9 +17,9 @@ protocol PhotoSelectorDelegate: class {
     
 }
 
-class PhotoSelector : NSObject {
+class knPhotoSelector : NSObject {
 
-    var delegate: PhotoSelectorDelegate?
+    var delegate: knPhotoSelectorDelegate?
 
     func showSelection() {
         
@@ -44,7 +44,7 @@ class PhotoSelector : NSObject {
 }
 
 
-extension PhotoSelector: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+extension knPhotoSelector: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
     
@@ -79,4 +79,42 @@ extension PhotoSelector: UINavigationControllerDelegate, UIImagePickerController
     }
     
 }
+
+
+
+
+class knPhotoSelectorWorker : knWorker {
+    
+    var successResponse : ((UIImage) -> Void)? = nil
+    var selectedImage : UIImage?
+    var picker: knPhotoSelector?
+    
+    init(finishSelection: ((UIImage) -> Void)?) {
+        successResponse = finishSelection
+    }
+    
+    func execute() {
+        picker = knPhotoSelector()
+        picker?.delegate = self
+        picker?.showSelection()
+    }
+    
+}
+
+extension knPhotoSelectorWorker : knPhotoSelectorDelegate {
+    
+    func present(_ controller: UIViewController) {
+        
+        let topController = UIApplication.topViewController()
+        topController?.present(controller, animated: true, completion: nil)
+    }
+    
+    func didSelect(_ image: UIImage) {
+        
+        selectedImage = image
+        successResponse?(image)
+        picker = nil
+    }
+}
+
 

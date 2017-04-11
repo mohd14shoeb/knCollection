@@ -106,7 +106,6 @@ open class TKTransitionSubmitButton : UIButton, UIViewControllerTransitioningDel
 
     open func animate() {
         startLoadingAnimation()
-//        startFinishAnimation(duration, completion: completion)
     }
 
     open func stopAnimate(_ completion:(()->())?) {

@@ -10,7 +10,7 @@ import UIKit
 
 enum LoadingType: Int {
     
-    case header, center, footer
+    case center, footer
 }
 
 class knLoading: NSObject {
