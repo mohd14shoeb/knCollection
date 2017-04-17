@@ -10,7 +10,7 @@ import Foundation
 
 extension Date {
     
-    var relativelyFormatted: String {
+    var timeAgo: String {
         
         let now = Date()
         
@@ -66,20 +66,9 @@ extension Date {
         return Calendar.current.date(from: component)!
     }
     
-    
-    /**
-     format NSDate to String formatted "HH:mm - dd/MM/yyyy". Pass another format string to change format
-     */
-    func formatDateTime(_ format: String = "HH:mm - dd/MM/yyyy") -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        return dateFormatter.string(from: self)
-    }
-    
     var isToday: Bool {
         return Calendar.current.isDateInToday(self)
     }
-    
     
     func startOfMonth() -> Date? {
         let cal: Calendar = Calendar.current
@@ -100,12 +89,6 @@ extension Date {
         comp.second = 0
         return cal.date(from: comp)
     }
-
-    func stringFromDate() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-yyyy"
-        return formatter.string(from: self)
-    }
     
     init(localTimeFromIso8601String dateString:String) {
         let dateFormatter = DateFormatter()
@@ -124,10 +107,10 @@ extension Date {
 
     }
     
-    init(dateString: String, format: String) {
+    init(dateString: String, format: String, locale: Locale = Locale(identifier: "en_US_POSIX")) {
         
         let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.locale = locale
         
         dateFormatter.dateFormat = format
         dateFormatter.calendar =  Calendar(identifier: Calendar.Identifier.iso8601)
@@ -218,13 +201,12 @@ extension Date {
     /**
      default format "MM/dd/yyyy"
      */
-    func toString(_ format: String = "MM/dd/yyyy") -> String {
+    func toString(_ format: String = "MM/dd/yyyy", locale: Locale = Locale(identifier: "en_US_POSIX")) -> String {
         
         let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.locale = locale
         dateFormatter.dateFormat = format
-        let dateString = dateFormatter.string(from: self)
-        return dateString
+        return dateFormatter.string(from: self)
     }
     
     func currentTimeZoneDate(format: String = "yyyy-MM-dd HH:mm:ss") -> String {

@@ -38,7 +38,9 @@ class knShimmerView: UIView {
     var font : UIFont! {
         didSet {
             textAttributes = createTextAttributes(font: font)
-            updateText(text)
+            if let text = text {
+                updateText(text)
+            }
         }
     }
     
@@ -57,6 +59,8 @@ class knShimmerView: UIView {
     }
     
     fileprivate func createImageFromText(_ text: String) -> UIImage {
+        
+        
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
         text.draw(in: bounds, withAttributes: textAttributes)
         let image = UIGraphicsGetImageFromCurrentImageContext()

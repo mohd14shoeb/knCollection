@@ -12,36 +12,7 @@ import Foundation
 struct knValidationWorker {
     
     var responseToResult: ((knError?) -> Void)?
-    
-    func validateEmailSilently(_ email: String) {
-        
-        if email.length == 0 {
-            responseToResult?(knError(code: .invalidEmail, message: "Email can't be blank"))
-            return
-        }
-        
-        if isValidEmail(email: email) == false {
-            responseToResult?(knError(code: .invalidEmail, message: "Invalid format"))
-            return
-        }
-        
-        responseToResult?(nil)
-    }
-    
-    func validateEmailFormat(_ email: String) {
-        if email.length == 0 {
-            responseToResult?(knError(code: .invalidEmail, message: "Email can't be blank"))
-            return
-        }
-        
-        if isValidEmail(email: email) == false {
-            responseToResult?(knError(code: .invalidEmail, message: "Invalid format"))
-            return
-        }
-        
-        responseToResult?(nil)
-    }
-    
+
     func validateEmail(_ email: String) {
         
         if email.length == 0 {
@@ -49,7 +20,7 @@ struct knValidationWorker {
             return
         }
         
-        if isValidEmail(email: email) == false {
+        if isValidEmail(email) == false {
             responseToResult?(knError(code: .invalidEmail, message: "Invalid format"))
             return
         }
@@ -57,12 +28,11 @@ struct knValidationWorker {
         self.responseToResult?(nil)
     }
 
-    private func isValidEmail(email: String?) -> Bool {
+    private func isValidEmail(_ email: String?) -> Bool {
         
         guard email != nil else { return false }
         return email!.isValidEmail()
     }
-    
     
     func validatePassword(_ password: String) {
         
@@ -79,16 +49,6 @@ struct knValidationWorker {
             let error = knError(code: .weakPassword, message: "Too weak. At least 6 characters")
             responseToResult?(error)
         }
-    }
-    
-    func validateName(_ name: String) {
-        if name.length == 0 {
-            responseToResult?(knError(code: .notSure, message: "Name can't be blank"))
-            return
-        }
-        
-        responseToResult?(nil)
-        
     }
     
     func validatePhone(_ phone: String) {
@@ -147,30 +107,6 @@ struct knValidationWorker {
         else {
             responseToResult?(nil)
         }
-        
-    }
-    
-    func validateNRIC(_ NRIC: String) {
-        
-        if NRIC.length == 0 {
-            responseToResult?(knError(code: .notSure, message: "NRIC can't be blank"))
-            return
-        }
-        
-        if NRIC.length < 5 {
-            let error = knError(code: .notSure, message: "Invalid NRIC")
-            responseToResult?(error)
-            return
-        }
-        
-        let isValid = NRIC.length == 5
-        if isValid == true {
-            responseToResult?(nil)
-            return
-        }
-        
-        
-        
     }
     
     func validateYear(_ year: String) {

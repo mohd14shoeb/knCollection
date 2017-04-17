@@ -25,11 +25,15 @@ class knTagView : UIView {
         knTag(text: "mobile developement: iOS "),
         knTag(text: "ambition"),
         knTag(text: "vision")
-    ]
+        ] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
     lazy var collectionView: UICollectionView = {
         
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: CenterAlignedCollectionViewFlowLayout())
         cv.delegate = self
         cv.dataSource = self
         cv.backgroundColor = UIColor.white
