@@ -3,28 +3,88 @@
 //  Opiyn
 //
 //  Created by Ky Nguyen on 9/16/16.
-//  Copyright © 2016 Manas Sharma. All rights reserved.
+//  Copyright © 2016 Ky Nguyen. All rights reserved.
 //
 
 import UIKit
+
+
+class knTwoColumnsController: knController {
+    let cellId = "cellId"
+    
+    
+    var layout : knTwoColumnsCollectionViewLayout!
+    
+    lazy var collectionView: UICollectionView = {
+        
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: knTwoColumnsCollectionViewLayout())
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.backgroundColor = .white
+        let cellPadding = knTwoColumnCollectionViewSetting.cellPadding
+        cv.contentInset = UIEdgeInsets(top: 0, left: cellPadding, bottom: cellPadding, right: cellPadding)
+        cv.layer.masksToBounds = true
+        cv.showsVerticalScrollIndicator = false
+        cv.alwaysBounceVertical = true
+        cv.delegate = self
+        cv.dataSource = self
+        return cv
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    override func setupView() {
+        if let layout = collectionView.collectionViewLayout as? knTwoColumnsCollectionViewLayout {
+            self.layout = layout
+            layout.delegate = self
+        }
+    }
+}
+
+extension knTwoColumnsController : knTwoColumnsCollectionViewLayoutDelegate {
+    
+    func collectionView(collectionView: UICollectionView, heightForCellAtIndexPath indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+}
+
+extension knTwoColumnsController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+}
+
 
 struct knTwoColumnCollectionViewSetting {
     static let cellPadding : CGFloat = 6
     static let columnWidth = UIScreen.main.bounds.width / CGFloat(2) - cellPadding * 2
 }
 
-final class knTwoCollumnsCollectionViewLayoutAttributes: UICollectionViewLayoutAttributes {
+final class knTwoColumnsCollectionViewLayoutAttributes: UICollectionViewLayoutAttributes {
     
     var photoHeight: CGFloat = 0.0
     
     override func copy(with zone: NSZone? = nil) -> Any {
-        let copy = super.copy(with: zone) as! knTwoCollumnsCollectionViewLayoutAttributes
+        
+        let copy = super.copy(with: zone) as! knTwoColumnsCollectionViewLayoutAttributes
         copy.photoHeight = photoHeight
         return copy
     }
     
     override func isEqual(_ object: Any?) -> Bool {
-        guard let attributes = object as? knTwoCollumnsCollectionViewLayoutAttributes else { return false }
+        guard let attributes = object as? knTwoColumnsCollectionViewLayoutAttributes else { return false }
         if attributes.photoHeight == photoHeight {
             return super.isEqual(object)
         }
@@ -37,10 +97,10 @@ protocol knTwoColumnsCollectionViewLayoutDelegate {
 }
 
 
-final class knTwoCollumnsCollectionViewLayout: UICollectionViewLayout {
+final class knTwoColumnsCollectionViewLayout: UICollectionViewLayout {
     var delegate : knTwoColumnsCollectionViewLayoutDelegate!
     var numberOfColumns = 2
-    private var cache = [knTwoCollumnsCollectionViewLayoutAttributes]()
+    private var cache = [knTwoColumnsCollectionViewLayoutAttributes]()
     private var contentHeight : CGFloat = 0
     private var contentWidth : CGFloat {
         let inset = collectionView!.contentInset
@@ -73,7 +133,7 @@ final class knTwoCollumnsCollectionViewLayout: UICollectionViewLayout {
             let frame = CGRect(x: xOffset[column], y: yOffset[column], width: columnWidth, height: height)
             let insetFrame = frame.insetBy(dx: knTwoColumnCollectionViewSetting.cellPadding, dy: knTwoColumnCollectionViewSetting.cellPadding)
             
-            let attributes = knTwoCollumnsCollectionViewLayoutAttributes(forCellWith: indexPath)
+            let attributes = knTwoColumnsCollectionViewLayoutAttributes(forCellWith: indexPath)
             attributes.photoHeight = cellHeight
             attributes.frame = insetFrame
             cache.append(attributes)

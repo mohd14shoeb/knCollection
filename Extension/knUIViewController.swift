@@ -52,11 +52,11 @@ extension UIViewController {
     }
     
     @discardableResult
-    func customBackArrow(tintColor: UIColor = .white) -> UIBarButtonItem {
+    func addBackButton() -> UIBarButtonItem {
         
         let backArrowImageView = UIImageView(image: UIImage(named: "back_arrow")?.changeColor())
         backArrowImageView.contentMode = .scaleAspectFit
-        backArrowImageView.tintColor = tintColor
+        
         let backButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 36))
         backButton.addSubview(backArrowImageView)
         backButton.addConstraints(withFormat: "H:|-(-4)-[v0]", views: backArrowImageView)
@@ -64,9 +64,7 @@ extension UIViewController {
         backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
         
         let backBarButton = UIBarButtonItem(customView: backButton)
-        
         navigationItem.leftBarButtonItem = backBarButton
-        
         return backBarButton
     }
     
