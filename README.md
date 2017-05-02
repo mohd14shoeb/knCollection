@@ -6,7 +6,7 @@ This is my collection of code snippets, extensions, my custom controls, or great
 A text composer with record and select photo button. Usually used in chat app. 
 	
   ![](https://github.com/nguyentruongky/knCollection/blob/develop/knCollection/Demo/ComposerView.png)
-	
+
 Resources required: This view needs some photos named "camera", "micro", "send", and "three_dot_vertical". 
 
 Add some below code into your controller to always show ComposerView above of the keyboard and automatically show/hide keyboard. Please remember, this way only works with `UITableViewController/UICollectionViewController`. 
@@ -37,7 +37,8 @@ Add some below code into your controller to always show ComposerView above of th
 A simple date picker. Just set delegate and show it in where you want. 
 
   ![](https://github.com/nguyentruongky/knCollection/blob/develop/knCollection/Demo/DateDialog.png)
-	
+
+
 	fxDateDialog.center.show(in: containerView)
 
 A great DatePickerDialog from Squimer (https://github.com/squimer/DatePickerDialog-iOS-Swift). I used it before I write a new one with my custom UI. 
@@ -99,11 +100,14 @@ Sample is here https://github.com/nguyentruongky/KPageViewController
 
 ![](https://github.com/nguyentruongky/knCollection/blob/develop/knCollection/Demo/RippleAnimation.gif)
 
+
 Used to indicate a location on the map. 
 
 ### knShimmerView 
 
+
 ![](https://github.com/nguyentruongky/knCollection/blob/develop/knCollection/Demo/ShimmerAnimation.gif)
+
 	
 	let newView = knShimmerView(frame: CGRect(x: 0, y: 30, width: 300, height: 100))
     newView.font = UIFont.boldSystemFont(ofSize: 32)
@@ -114,7 +118,9 @@ Used to indicate a location on the map.
 
 A center-aligned tag collection. 
 
+
 ![](https://github.com/nguyentruongky/knCollection/blob/develop/knCollection/Demo/TagView.gif)
+
 	
     let tag = knTagView()
     tag.translatesAutoresizingMaskIntoConstraints = false
@@ -137,7 +143,9 @@ Two columns layout for UICollectionView, like Pinterest. Learn more from here ht
 
 ### knUnderlineTextField
 
+
 ![](https://github.com/nguyentruongky/knCollection/blob/develop/knCollection/Demo/UnderlineTextField.png)
+
 	
 An underline to indicate first responder textfield. 
 
@@ -177,7 +185,9 @@ An extension to find the topViewController is needed here
 
 ### knRecordView
 
+
   ![](https://github.com/nguyentruongky/knCollection/blob/develop/knCollection/Demo/RecordView.gif)
+
 
 ### RSKCollectionViewRetractableFirstItemLayout
 Awesome layout for collection view from Ruslan Skorb. Read his instruction here https://github.com/ruslanskorb/RSKCollectionViewRetractableFirstItemLayout
@@ -432,3 +442,4 @@ Add back button on presented ViewController, custom back button in NavigationCon
 	}
 	
 	
+
