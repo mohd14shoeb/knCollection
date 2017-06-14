@@ -153,7 +153,7 @@ class AnalogClockView: UIView {
         enterForegroundNotification = nil
     }
 
-    func displayTime(_ timer: Timer) {
+    @objc func displayTime(_ timer: Timer) {
         setTimeAnimated(true)
     }
     

@@ -57,7 +57,7 @@ class knComposerView : UIView {
         return button
         }() /* cameraButton */
     
-    func handleSelectImage() {
+    @objc func handleSelectImage() {
         textView.resignFirstResponder()
         delegate?.didShowImageSelection()
     }
@@ -71,7 +71,7 @@ class knComposerView : UIView {
         return button
         }() /* microButton */
     
-    func handleRecord() {
+    @objc func handleRecord() {
         textView.resignFirstResponder()
         delegate?.didShowRecordView()
     }
@@ -85,7 +85,7 @@ class knComposerView : UIView {
         return button
         }() /* sendButton */
     
-    func handleSend() {
+    @objc func handleSend() {
         sendDelegate?.sendMessage(textView.text, type: knMessageType.text)
     }
     

@@ -175,7 +175,7 @@ class knDraggableView: UIView {
     
     func setupView() {}
     
-    func beingDragged(_ gestureRecognizer: UIPanGestureRecognizer) {
+    @objc func beingDragged(_ gestureRecognizer: UIPanGestureRecognizer) {
         
         xFromCenter = Float(gestureRecognizer.translation(in: self).x)
         yFromCenter = Float(gestureRecognizer.translation(in: self).y)

@@ -12,10 +12,10 @@ import UIKit
 extension UIBarButtonItem {
     
     func changeTitleColor(_ color: UIColor = UIColor.blue, font: UIFont = UIFont.systemFont(ofSize: 14)) {
-        let deleteCardFormat = [
-            NSForegroundColorAttributeName: color,
-            NSFontAttributeName: font]
-        setTitleTextAttributes(deleteCardFormat, for: UIControlState())
+        let format = [
+            NSAttributedStringKey.foregroundColor.rawValue: color,
+            NSAttributedStringKey.font.rawValue: font]
+        setTitleTextAttributes(format, for: .normal)
     }
 }
 
@@ -27,7 +27,7 @@ extension UILabel{
         paragraphStyle.maximumLineHeight = 40
         paragraphStyle.alignment = .left
         
-        let ats = [NSParagraphStyleAttributeName:paragraphStyle]
+        let ats = [NSAttributedStringKey.paragraphStyle:paragraphStyle]
         attributedText = NSAttributedString(string: self.text!, attributes:ats)
         textAlignment = alignText
     }

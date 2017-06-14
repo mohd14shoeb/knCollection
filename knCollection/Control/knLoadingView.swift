@@ -94,18 +94,18 @@ class knLoading: NSObject {
     }
     
     fileprivate func hideCenterLoadingView() {
-        
-        setCenterLoadingView(visibility: false, completeHandler: {
-            
+
+        func completeSetCenterLoading() {
             self.currentLoadingView = nil
             self.currentLoadingType = nil
             self.containerView = nil
             self.centerLoadingView.removeFromSuperview()
-        })
+        }
+        setCenterLoadingView(visibility: false, completeHandler: completeSetCenterLoading)
     }
     
     fileprivate func setCenterLoadingView(visibility visible: Bool,
-                                      completeHandler: ((Void) -> Void)? = nil) {
+                                          completeHandler: (() -> Void)? = nil) {
         
         UIView.animate(withDuration: 0.25, animations: { 
             
@@ -165,18 +165,18 @@ class knLoading: NSObject {
     }
     
     fileprivate func hideFooterLoadingView() {
-        
-        setFooterLoadingView(visibility: false, completeHandler: {
-        
-            self.currentLoadingView = nil
-            self.currentLoadingType = nil
-            self.containerView = nil
-            self.footerLoadingView.removeFromSuperview()
-        })
+
+        func completeHideFooterLoading() {
+            currentLoadingView = nil
+            currentLoadingType = nil
+            containerView = nil
+            footerLoadingView.removeFromSuperview()
+        }
+        setFooterLoadingView(visibility: false, completeHandler: completeHideFooterLoading)
     }
     
     fileprivate func setFooterLoadingView(visibility visible: Bool,
-                                      completeHandler: ((Void) -> Void)? = nil) {
+                                          completeHandler: (() -> Void)? = nil) {
         
         UIView.animate(withDuration: 0.25, animations: { 
             

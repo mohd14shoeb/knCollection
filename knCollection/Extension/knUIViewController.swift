@@ -47,7 +47,7 @@ extension UIViewController {
         navigationItem.leftBarButtonItems = buttons
     }
     
-    func goBack() {
+    @objc func goBack() {
         dismiss(animated: true, completion: nil)
     }
     
@@ -70,7 +70,7 @@ extension UIViewController {
         return backBarButton
     }
     
-    func back() {
+    @objc func back() {
         _ = navigationController?.popViewController(animated: true)
     }
 

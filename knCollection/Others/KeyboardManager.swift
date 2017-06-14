@@ -42,12 +42,12 @@ final class KeyboardManager : UIView {
         notificationCenter.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    func keyboardWillShow(_ notification: Notification) {
+    @objc func keyboardWillShow(_ notification: Notification) {
         
         delegate?.keyboardWillShow(notification)
     }
     
-    func keyboardWillHide() {
+    @objc func keyboardWillHide() {
         
         delegate?.keyboardWillHide()
     }

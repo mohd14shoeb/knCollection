@@ -258,11 +258,11 @@ extension knRecordView {
 // MARK: Handler and Animation
 extension knRecordView {
     
-    func handleClose() {
+    @objc func handleClose() {
         delegate?.closeRecordView()
     }
     
-    func handleTimer() {
+    @objc func handleTimer() {
         seconds += 1
     }
 
@@ -308,7 +308,7 @@ extension knRecordView {
         }
     }
     
-    func handleStartRecording() {
+    @objc func handleStartRecording() {
         
         guard audioRecorder?.isRecording == false else { return }
         
@@ -322,7 +322,7 @@ extension knRecordView {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(handleTimer), userInfo: nil, repeats: true)
     }
     
-    func handleStopRecording(tapGesture: UITapGestureRecognizer) {
+    @objc func handleStopRecording(tapGesture: UITapGestureRecognizer) {
         
         guard audioRecorder?.isRecording == true else { return }
         stopRecording()
@@ -337,7 +337,7 @@ extension knRecordView {
         setMicroViewAnimate(false)
     }
     
-    func handlePan(gesture: UIPanGestureRecognizer) {
+    @objc func handlePan(gesture: UIPanGestureRecognizer) {
         
         func isOutsideOfButton() -> Bool {
             let location = gesture.location(in: recordButton)

@@ -225,37 +225,6 @@ extension Date {
         return dateFormatter.string(from: self) + "Z"
     }
     
-    func getElapsedInterval() -> String {
-        
-        var interval = (Calendar.current as NSCalendar).components(.year, from: self, to: Date(), options: []).year
-        
-        if interval! > 0 {
-            return interval == 1 ? "\(String(describing: interval)) year" : "\(String(describing: interval)) years"
-        }
-        
-        interval = (Calendar.current as NSCalendar).components(.month, from: self, to: Date(), options: []).month
-        if interval! > 0 {
-            return interval == 1 ? "\(String(describing: interval)) month" : "\(String(describing: interval)) months"
-        }
-        
-        interval = (Calendar.current as NSCalendar).components(.day, from: self, to: Date(), options: []).day
-        if interval! > 0 {
-            return interval == 1 ? "\(String(describing: interval)) day" : "\(String(describing: interval)) days"
-        }
-        
-        interval = (Calendar.current as NSCalendar).components(.hour, from: self, to: Date(), options: []).hour
-        if interval! > 0 {
-            return interval == 1 ? "\(String(describing: interval)) hour" : "\(String(describing: interval)) hours"
-        }
-        
-        interval = (Calendar.current as NSCalendar).components(.minute, from: self, to: Date(), options: []).minute
-        if interval! > 0 {
-            return interval == 1 ? "\(String(describing: interval)) minute" : "\(String(describing: interval)) minutes"
-        }
-        
-        return "a moment ago"
-    }
-    
     func dayOfTheWeek() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE"

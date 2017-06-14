@@ -21,7 +21,9 @@ extension UINavigationController {
     }
     
     func changeTitleFont(_ font: UIFont, color: UIColor = .white) {
-        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: color, NSFontAttributeName: font]
+
+        navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: color,
+                                             NSAttributedStringKey.font.rawValue: font]
     }
     
     func fillNavigationBar(with color: UIColor) {

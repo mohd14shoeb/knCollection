@@ -73,7 +73,6 @@ open class GradientView: UIView {
     }
     
     /// The mode of the gradient. The default is `.Linear`.
-    @IBInspectable
     open var mode: Type = .linear {
         didSet {
             setNeedsDisplay()
@@ -81,7 +80,6 @@ open class GradientView: UIView {
     }
     
     /// The direction of the gradient. Only valid for the `Mode.Linear` mode. The default is `.Vertical`.
-    @IBInspectable
     open var direction: Direction = .vertical {
         didSet {
             setNeedsDisplay()

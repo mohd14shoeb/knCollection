@@ -20,7 +20,7 @@ extension String {
     
     func attributeString(_ atrString: String, mainStr: String, color: UIColor, font: UIFont){
         let mutableAtrStr = NSMutableAttributedString(string: mainStr)
-        let attribute = [NSForegroundColorAttributeName: color, NSFontAttributeName: font]
+        let attribute = [NSAttributedStringKey.foregroundColor: color, NSAttributedStringKey.font: font]
         let attributeString = NSAttributedString(string: atrString, attributes: attribute)
         mutableAtrStr.append(attributeString)
     }
@@ -39,9 +39,9 @@ extension String {
         let attributedString =
             NSMutableAttributedString(string: string,
                                       attributes: [
-                                        NSFontAttributeName: font,
-                                        NSForegroundColorAttributeName: color])
-        let boldFontAttribute = [NSFontAttributeName: boldFont, NSForegroundColorAttributeName: boldColor]
+                                        NSAttributedStringKey.font: font,
+                                        NSAttributedStringKey.foregroundColor: color])
+        let boldFontAttribute = [NSAttributedStringKey.font: boldFont, NSAttributedStringKey.foregroundColor: boldColor]
         for bold in boldStrings {
             attributedString.addAttributes(boldFontAttribute, range: (string as NSString).range(of: bold))
         }
@@ -53,13 +53,13 @@ extension String {
         paragraphStyle.lineSpacing = spacing
         paragraphStyle.alignment = alignText
         paragraphStyle.maximumLineHeight = 40
-        let attributed = [NSParagraphStyleAttributeName:paragraphStyle]
+        let attributed = [NSAttributedStringKey.paragraphStyle:paragraphStyle]
         return NSAttributedString(string: string, attributes:attributed)
     }
     
     func strikethroughText() -> NSMutableAttributedString {
         let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: self)
-        attributeString.addAttribute(NSStrikethroughStyleAttributeName,
+        attributeString.addAttribute(NSAttributedStringKey.strikethroughStyle,
                                      value: NSUnderlineStyle.styleSingle.rawValue,
                                      range: NSMakeRange(0, attributeString.length))
         return attributeString
@@ -67,7 +67,7 @@ extension String {
     
     func estimateFrameForText(withFont font: UIFont, estimateSize: CGSize) -> CGRect {
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-        return NSString(string: self).boundingRect(with: estimateSize, options: options, attributes: [NSFontAttributeName: font], context: nil)
+        return NSString(string: self).boundingRect(with: estimateSize, options: options, attributes: [NSAttributedStringKey.font: font], context: nil)
     }
 }
 
@@ -139,9 +139,9 @@ public extension String {
     func chompLeft(_ prefix: String) -> String {
         if let prefixRange = range(of: prefix) {
             if prefixRange.upperBound >= endIndex {
-                return self[startIndex..<prefixRange.lowerBound]
+                return String(self[startIndex..<prefixRange.lowerBound])
             } else {
-                return self[prefixRange.upperBound..<endIndex]
+                return String(self[prefixRange.upperBound..<endIndex])
             }
         }
         return self
@@ -150,9 +150,9 @@ public extension String {
     func chompRight(_ suffix: String) -> String {
         if let suffixRange = range(of: suffix, options: .backwards) {
             if suffixRange.upperBound >= endIndex {
-                return self[startIndex..<suffixRange.lowerBound]
+                return String(self[startIndex..<suffixRange.lowerBound])
             } else {
-                return self[suffixRange.upperBound..<endIndex]
+                return String(self[suffixRange.upperBound..<endIndex])
             }
         }
         return self
@@ -221,125 +221,8 @@ public extension String {
         return NumberFormatter().number(from: self) != nil
     }
     
-    func join<S : Sequence>(_ elements: S) -> String {
-        return elements.map{String(describing: $0)}.joined(separator: self)
-    }
-    
-    func latinize() -> String {
-        return self.folding(options: .diacriticInsensitive, locale: Locale.current)
-    }
-    
-    func lines() -> [String] {
-        return characters.split{$0 == "\n"}.map(String.init)
-    }
-    
-    func pad(_ n: Int, _ string: String = " ") -> String {
-        return "".join([string.times(n), self, string.times(n)])
-    }
-    
-    func padLeft(_ n: Int, _ string: String = " ") -> String {
-        return "".join([string.times(n), self])
-    }
-    
-    func padRight(_ n: Int, _ string: String = " ") -> String {
-        return "".join([self, string.times(n)])
-    }
-    
-    func slugify() -> String {
-        let slugCharacterSet = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-")
-        return latinize().lowercased()
-            .components(separatedBy: slugCharacterSet.inverted)
-            .filter { $0 != "" }
-            .joined(separator: "-")
-    }
-    
     func startsWith(_ prefix: String) -> Bool {
         return hasPrefix(prefix)
-    }
-    
-    func times(_ n: Int) -> String {
-        return (0..<n).reduce("") { $0.0 + self }
-    }
-    
-    func toFloat() -> Float? {
-        if let number = NumberFormatter().number(from: self) {
-            return number.floatValue
-        }
-        return nil
-    }
-    
-    func toInt() -> Int? {
-        if let number = NumberFormatter().number(from: self) {
-            return number.intValue
-        }
-        return nil
-    }
-    
-    func toDouble(_ locale: Locale = Locale.current) -> Double? {
-        let nf = NumberFormatter()
-        nf.locale = locale
-        if let number = nf.number(from: self) {
-            return number.doubleValue
-        }
-        return nil
-    }
-    
-    func toBool() -> Bool? {
-        let trimmed = self.trimmed().lowercased()
-        if trimmed == "true" || trimmed == "false" {
-            return (trimmed as NSString).boolValue
-        }
-        return nil
-    }
-    
-    func toDate(_ format: String = "yyyy-MM-dd") -> Date? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        return dateFormatter.date(from: self)
-    }
-    
-    func toDateTime(_ format : String = "yyyy-MM-dd HH:mm:ss") -> Date? {
-        return toDate(format)
-    }
-    
-    func trimmedLeft() -> String {
-        if let range = rangeOfCharacter(from: CharacterSet.whitespacesAndNewlines.inverted) {
-            return self[range.lowerBound..<endIndex]
-        }
-        return self
-    }
-    
-    func trimmedRight() -> String {
-        if let range = rangeOfCharacter(from: CharacterSet.whitespacesAndNewlines.inverted, options: NSString.CompareOptions.backwards) {
-            return self[startIndex..<range.upperBound]
-        }
-        return self
-    }
-    
-    func trimmed() -> String {
-        return trimmedLeft().trimmedRight()
-    }
-    
-    subscript(r: Range<Int>) -> String {
-        get {
-            let startIndex = self.characters.index(self.startIndex, offsetBy: r.lowerBound)
-            let endIndex = self.characters.index(self.startIndex, offsetBy: r.upperBound - r.lowerBound)
-            
-            return self[startIndex..<endIndex]
-        }
-    }
-    
-    func substring(_ startIndex: Int, length: Int) -> String {
-        let start = self.characters.index(self.startIndex, offsetBy: startIndex)
-        let end = self.characters.index(self.startIndex, offsetBy: startIndex + length)
-        return self[start..<end]
-    }
-    
-    subscript(i: Int) -> Character {
-        get {
-            let index = self.characters.index(self.startIndex, offsetBy: i)
-            return self[index]
-        }
     }
     
     static func random(_ length: Int = 5) -> String {

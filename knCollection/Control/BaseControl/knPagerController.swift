@@ -36,16 +36,16 @@ class knPagerController : PagerController {
     
     /* override if needed */
     func setupNavigationBar() {
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont.boldSystemFont(ofSize: 16)]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.white, NSAttributedStringKey.font.rawValue: UIFont.boldSystemFont(ofSize: 16)]
     }
     
     func formatTabIndicator() {
         tabsViewBackgroundColor = .white
-//        indicatorColor = fxColor.fx_119_203_189
-//        tabsTextColor = fxColor.fx_119_203_189
-//        selectedTabTextColor = fxColor.fx_119_203_189
-//        tabsTextFont = fxFont.font(size: 14)
-        
+        indicatorColor = .lightGray
+        tabsTextColor = .lightGray
+        selectedTabTextColor = .darkGray
+        tabsTextFont = .systemFont(ofSize: 14)
+
         centerCurrentTab = true
         tabTopOffset = 0
         tabHeight = 40

@@ -135,12 +135,12 @@ class knDateDialog: UIView {
         
     }
     
-    func handleSetAppointment() {
+    @objc func handleSetAppointment() {
         close()
         delegate?.didSelectDate(date: datePicker.date)
     }
     
-    func handleCancel() {
+    @objc func handleCancel() {
         close()
         delegate?.didCancelSelection()
     }
