@@ -74,6 +74,14 @@ extension UIViewController {
         _ = navigationController?.popViewController(animated: true)
     }
 
+    func present(controller: UIViewController) {
+        present(controller, animated: true)
+    }
+
+    func push(controller: UIViewController) {
+        navigationController?.pushViewController(controller, animated: true)
+    }
+
 }
 
 extension UITableViewController {
