@@ -15,7 +15,7 @@ extension UIView {
         layer.borderWidth = width
     }
     
-    func createRoundCorner(_ radius: CGFloat) {
+    @objc func createRoundCorner(_ radius: CGFloat) {
         layer.cornerRadius = radius
         clipsToBounds = true
     }
@@ -180,6 +180,14 @@ extension UIView {
     public func horizontalSpacing(toView view: UIView, space: CGFloat = 0) -> NSLayoutConstraint {
         
         let constraint = rightAnchor.constraint(equalTo: view.leftAnchor, constant: -space)
+        constraint.isActive = true
+        return constraint
+    }
+    
+    @discardableResult
+    public func leftHorizontalSpacing(toView view: UIView, space: CGFloat = 0) -> NSLayoutConstraint {
+        
+        let constraint = leftAnchor.constraint(equalTo: view.rightAnchor, constant: -space)
         constraint.isActive = true
         return constraint
     }
