@@ -21,7 +21,6 @@ class knPagerController : PagerController {
         
         formatTabIndicator()
         
-        setupView()
     }
     
     /* need override */
