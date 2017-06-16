@@ -36,7 +36,7 @@ class knPagerController : PagerController {
     
     /* override if needed */
     func setupNavigationBar() {
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.white, NSAttributedStringKey.font.rawValue: UIFont.boldSystemFont(ofSize: 16)]
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont.boldSystemFont(ofSize: 16)]
     }
     
     func formatTabIndicator() {

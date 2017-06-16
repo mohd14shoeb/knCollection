@@ -25,7 +25,7 @@ import UIKit
 //    fileprivate var textAttributes: [String: AnyObject] = {
 //        let style = NSMutableParagraphStyle()
 //        style.alignment = .center
-//        return [NSAttributedStringKey.font.rawValue: UIFont.systemFont(ofSize: 70),
+//        return [NSFontAttributeName.rawValue: UIFont.systemFont(ofSize: 70),
 //                NSAttributedStringKey.paragraphStyle.rawValue: style]
 //    }()
 //
@@ -47,7 +47,7 @@ import UIKit
 //    fileprivate func createTextAttributes(font: UIFont) -> [String: AnyObject] {
 //        let style = NSMutableParagraphStyle()
 //        style.alignment = .center
-//        let attribute = [NSAttributedStringKey.font.rawValue: font, NSAttributedStringKey.paragraphStyle.rawValue: style]
+//        let attribute = [NSFontAttributeName.rawValue: font, NSAttributedStringKey.paragraphStyle.rawValue: style]
 //        return attribute
 //    }
 //

@@ -13,8 +13,8 @@ extension UIBarButtonItem {
     
     func changeTitleColor(_ color: UIColor = UIColor.blue, font: UIFont = UIFont.systemFont(ofSize: 14)) {
         let format = [
-            NSAttributedStringKey.foregroundColor.rawValue: color,
-            NSAttributedStringKey.font.rawValue: font]
+            NSForegroundColorAttributeName: color,
+            NSFontAttributeName: font]
         setTitleTextAttributes(format, for: .normal)
     }
 }
@@ -26,8 +26,8 @@ extension UILabel{
         paragraphStyle.lineSpacing = spacing
         paragraphStyle.maximumLineHeight = 40
         paragraphStyle.alignment = .left
-        
-        let ats = [NSAttributedStringKey.paragraphStyle:paragraphStyle]
+
+        let ats = [NSParagraphStyleAttributeName:paragraphStyle]
         attributedText = NSAttributedString(string: self.text!, attributes:ats)
         textAlignment = alignText
     }

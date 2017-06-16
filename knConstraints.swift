@@ -136,6 +136,15 @@ extension UIView {
         constraint.isActive = true
         return constraint
     }
+
+    @discardableResult
+    public func leftHorizontalSpacing(toView view: UIView, space: CGFloat = 0) -> NSLayoutConstraint {
+
+        let constraint = leftAnchor.constraint(equalTo: view.rightAnchor, constant: -space)
+        constraint.isActive = true
+        return constraint
+    }
+
     
     
     public func size(_ size: CGSize) {

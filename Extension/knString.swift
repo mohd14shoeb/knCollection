@@ -19,8 +19,9 @@ extension String {
     }
     
     func attributeString(_ atrString: String, mainStr: String, color: UIColor, font: UIFont){
+
         let mutableAtrStr = NSMutableAttributedString(string: mainStr)
-        let attribute = [NSAttributedStringKey.foregroundColor: color, NSAttributedStringKey.font: font]
+        let attribute = [NSForegroundColorAttributeName: color, NSFontAttributeName: font]
         let attributeString = NSAttributedString(string: atrString, attributes: attribute)
         mutableAtrStr.append(attributeString)
     }
@@ -35,13 +36,13 @@ extension String {
                               boldFont: UIFont = UIFont.boldSystemFont(ofSize: 14),
                               boldColor: UIColor = UIColor.blue
         ) -> NSAttributedString {
-        
+
         let attributedString =
             NSMutableAttributedString(string: string,
                                       attributes: [
-                                        NSAttributedStringKey.font: font,
-                                        NSAttributedStringKey.foregroundColor: color])
-        let boldFontAttribute = [NSAttributedStringKey.font: boldFont, NSAttributedStringKey.foregroundColor: boldColor]
+                                        NSFontAttributeName: font,
+                                        NSForegroundColorAttributeName: color])
+        let boldFontAttribute = [NSFontAttributeName: boldFont, NSForegroundColorAttributeName: boldColor]
         for bold in boldStrings {
             attributedString.addAttributes(boldFontAttribute, range: (string as NSString).range(of: bold))
         }
@@ -53,13 +54,15 @@ extension String {
         paragraphStyle.lineSpacing = spacing
         paragraphStyle.alignment = alignText
         paragraphStyle.maximumLineHeight = 40
-        let attributed = [NSAttributedStringKey.paragraphStyle:paragraphStyle]
+
+        let attributed = [NSParagraphStyleAttributeName:paragraphStyle]
         return NSAttributedString(string: string, attributes:attributed)
     }
     
     func strikethroughText() -> NSMutableAttributedString {
+
         let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: self)
-        attributeString.addAttribute(NSAttributedStringKey.strikethroughStyle,
+        attributeString.addAttribute(NSStrikethroughStyleAttributeName,
                                      value: NSUnderlineStyle.styleSingle.rawValue,
                                      range: NSMakeRange(0, attributeString.length))
         return attributeString
@@ -67,7 +70,7 @@ extension String {
     
     func estimateFrameForText(withFont font: UIFont, estimateSize: CGSize) -> CGRect {
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-        return NSString(string: self).boundingRect(with: estimateSize, options: options, attributes: [NSAttributedStringKey.font: font], context: nil)
+        return NSString(string: self).boundingRect(with: estimateSize, options: options, attributes: [NSFontAttributeName: font], context: nil)
     }
 }
 
