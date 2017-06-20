@@ -26,12 +26,6 @@ extension UINavigationController {
                                              NSFontAttributeName: font]
     }
 
-    func removeBottomSeparator() {
-        navigationBar.isTranslucent = false
-        navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationBar.shadowImage = UIImage()
-    }
-
     func fillNavigationBar(with color: UIColor) {
         navigationBar.barTintColor = color
         navigationBar.tintColor = .white
