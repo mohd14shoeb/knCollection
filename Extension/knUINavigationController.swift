@@ -37,6 +37,10 @@ extension UINavigationController {
         navigationBar.tintColor = .white
     }
     
+    func removeBottomSeparator() {
+        navigationBar.shadowImage = UIImage()
+    }
+    
     func fillNavigationBar(withColors colors: [CGColor],
                            startPoint: CGPoint = CGPoint(x: 0, y: 0),
                            endPoint: CGPoint = CGPoint(x: 1, y: 1)) {
