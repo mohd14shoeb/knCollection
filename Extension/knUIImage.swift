@@ -7,7 +7,15 @@
 //
 
 import UIKit
+import Kingfisher
+
 extension UIImageView {
+
+    func downloadImage(from url: String?, placeholder: UIImage? = nil) {
+
+        guard let url = url, let nsurl = URL(string: url) else { return }
+        kf.setImage(with: ImageResource(downloadURL: nsurl), placeholder: placeholder)
+    }
     
     func blur() {
         
@@ -87,6 +95,16 @@ extension UIImage {
         let directory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString
         let path = directory.appendingPathComponent(name)
         return UIImage(contentsOfFile: path)
+    }
+
+    static func delete(name: String) {
+        let fileManager = FileManager.default
+        do {
+            try fileManager.removeItem(atPath: name)
+        }
+        catch let error as NSError {
+            print("Ooops! Something went wrong: \(error)")
+        }
     }
     
     func resize(toWidth width: CGFloat, compressionQuality quality: CGFloat = 0.5) -> UIImage {

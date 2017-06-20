@@ -18,6 +18,7 @@ enum knErrorCode : String {
     case serverError
     case empty
     case emailExist
+    case emptyPassword
     case weakPassword
     case notSure
     case facebookCancel

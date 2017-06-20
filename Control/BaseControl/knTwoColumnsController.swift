@@ -43,7 +43,6 @@ class knTwoColumnsController: knController {
         
         view.addSubview(collectionView)
         collectionView.fill(toView: view)
-        collectionView.register(ogeInspirationCell.self, forCellWithReuseIdentifier: "ogeInspirationCell")
     }
     
     override func fetchData() {

@@ -23,7 +23,7 @@ class knPhotoSelector : NSObject {
 
     func showSelection() {
         
-        let pickPhoto = UIAlertAction(title: "Choose from Gallery", style: .default) { (action) in
+        let pickPhoto = UIAlertAction(title: "Choose Photo", style: .default) { (action) in
             self.pickImageFromPhotoLibrary()
         }
         
@@ -32,8 +32,8 @@ class knPhotoSelector : NSObject {
         }
         
         let menu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        menu.addAction(pickPhoto)
         menu.addAction(takePhoto)
+        menu.addAction(pickPhoto)
         menu.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         delegate?.present(menu)
     }
