@@ -29,6 +29,12 @@ extension UIView {
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutFormatOptions(), metrics: nil, views: viewsDictionary))
     }
     
+    func addSubviews(views: UIView...) {
+        for view in views {
+            addSubview(view)
+        }
+    }
+    
     @discardableResult
     public func left(toAnchor anchor: NSLayoutXAxisAnchor, space: CGFloat = 0) -> NSLayoutConstraint {
         let constraint = leftAnchor.constraint(equalTo: anchor, constant: space)

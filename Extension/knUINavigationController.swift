@@ -32,6 +32,8 @@ extension UINavigationController {
     }
     
     func removeBottomSeparator() {
+        
+        navigationBar.setBackgroundImage(UIImage.imageFromColor(colour: .white), for: .default)
         navigationBar.shadowImage = UIImage()
     }
     

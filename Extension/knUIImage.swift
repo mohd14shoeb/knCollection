@@ -125,7 +125,7 @@ extension UIImage {
         return withRenderingMode(UIImageRenderingMode.alwaysTemplate)
     }
 
-    func imageFromColor(colour: UIColor) -> UIImage
+    static func imageFromColor(colour: UIColor) -> UIImage
     {
         let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
         UIGraphicsBeginImageContext(rect.size)

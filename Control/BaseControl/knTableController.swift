@@ -60,6 +60,8 @@ class knCustomTableController: UIViewController {
         
         let tb = UITableView()
         tb.translatesAutoresizingMaskIntoConstraints = false
+        tb.separatorStyle = .none
+        tb.showsVerticalScrollIndicator = false 
         tb.dataSource = self
         tb.delegate = self
         return tb
