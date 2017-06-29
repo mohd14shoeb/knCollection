@@ -28,6 +28,19 @@ extension UIView {
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutFormatOptions(), metrics: nil, views: viewsDictionary))
     }
+
+    func addConstraints(withFormat format: String, arrayOf views: [UIView]) {
+
+        var viewsDictionary = [String: UIView]()
+
+        for i in 0 ..< views.count {
+            let key = "v\(i)"
+            views[i].translatesAutoresizingMaskIntoConstraints = false
+            viewsDictionary[key] = views[i]
+        }
+
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutFormatOptions(), metrics: nil, views: viewsDictionary))
+    }
     
     func addSubviews(views: UIView...) {
         for view in views {
