@@ -78,7 +78,7 @@ extension UIViewController {
         present(controller, animated: true)
     }
 
-    func push(controller: UIViewController) {
+    func push(_ controller: UIViewController) {
         navigationController?.pushViewController(controller, animated: true)
     }
 
