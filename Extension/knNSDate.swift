@@ -51,7 +51,11 @@ extension Date {
         
         return "just now"
     }
-    
+
+    static var mondaysDate: Date {
+        return Calendar(identifier: .iso8601).date(from: Calendar(identifier: .iso8601).dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date()))!
+    }
+
     static func dateFrom(year: Int = 1970, month: Int = 1, day: Int = 1, hour: Int = 0, minute: Int = 0, second: Int = 0) -> Date? {
         
         var component = DateComponents()
