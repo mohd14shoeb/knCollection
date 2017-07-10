@@ -9,7 +9,7 @@
 import UIKit
 
 extension String {
-    
+
     func capitalizingFirstLetter() -> String {
         guard characters.count > 0 else { return self }
         
@@ -29,13 +29,13 @@ extension String {
     /**
      format some string in normal string.
      */
-    func formatStringInString(_ string: String,
-                              font: UIFont = UIFont.systemFont(ofSize: 14),
-                              color: UIColor = UIColor.black,
-                              boldStrings: [String],
-                              boldFont: UIFont = UIFont.boldSystemFont(ofSize: 14),
-                              boldColor: UIColor = UIColor.blue
-        ) -> NSAttributedString {
+
+    static func format(strings: [String],
+                       boldFont: UIFont = UIFont.boldSystemFont(ofSize: 14),
+                       boldColor: UIColor = UIColor.blue,
+                       inString string: String,
+                       font: UIFont = UIFont.systemFont(ofSize: 14),
+                       color: UIColor = UIColor.black) -> NSAttributedString {
 
         let attributedString =
             NSMutableAttributedString(string: string,
@@ -43,7 +43,7 @@ extension String {
                                         NSFontAttributeName: font,
                                         NSForegroundColorAttributeName: color])
         let boldFontAttribute = [NSFontAttributeName: boldFont, NSForegroundColorAttributeName: boldColor]
-        for bold in boldStrings {
+        for bold in strings {
             attributedString.addAttributes(boldFontAttribute, range: (string as NSString).range(of: bold))
         }
         return attributedString
@@ -103,7 +103,23 @@ extension String {
         return components(separatedBy: separator)
     }
     
-    
+    func substring(from: Int, to: Int) -> String {
+
+        let start = index(startIndex, offsetBy: from)
+        let end = index(endIndex, offsetBy: -(characters.count - to) + 1)
+        let range = start ..< end
+        return substring(with: range)
+    }
+
+    func substring(from: Int) -> String {
+        let start = index(startIndex, offsetBy: from)
+        return substring(from: start)
+    }
+
+    func substring(to: Int) -> String {
+        let end = index(endIndex, offsetBy: -(characters.count - to) + 1)
+        return substring(to: end)
+    }
 }
 
 //
@@ -181,15 +197,7 @@ public extension String {
     func endsWith(_ suffix: String) -> Bool {
         return hasSuffix(suffix)
     }
-    
-    func ensureLeft(_ prefix: String) -> String {
-        return startsWith(prefix) ? self : "\(prefix)\(self)"
-    }
-    
-    func ensureRight(_ suffix: String) -> String {
-        return endsWith(suffix) ? self : "\(self)\(suffix)"
-    }
-    
+
     func indexOf(_ substring: String) -> Int? {
         
         guard let range = range(of: substring) else { return nil }
@@ -222,10 +230,6 @@ public extension String {
     
     func isNumeric() -> Bool {
         return NumberFormatter().number(from: self) != nil
-    }
-    
-    func startsWith(_ prefix: String) -> Bool {
-        return hasPrefix(prefix)
     }
     
     static func random(_ length: Int = 5) -> String {
