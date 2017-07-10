@@ -8,6 +8,11 @@
 
 import UIKit
 
+@objc protocol knPagerDelegate: class {
+    
+    @objc optional func didSelectTab(at indexPath: IndexPath)
+}
+
 struct knScrollingOptions {
 
     var headerView: UIView?
@@ -24,11 +29,10 @@ struct knScrollingOptions {
     var tabActiveTextColor = UIColor.black
 
     var tabBackgroundColor = UIColor.white
+    var tabActiveBackgroundColor = UIColor.white
 
     var indicatorHeight: CGFloat = 2
     var indicatorColor = UIColor.lightGray
-
-    var pageHeight: CGFloat = screenHeight
 
     init(headerView: UIView?) {
         self.headerView = headerView
@@ -38,6 +42,9 @@ struct knScrollingOptions {
 
 class knScrollingPagerController: knCustomTableController {
 
+    
+    weak var pagerDelegate: knPagerDelegate?
+    
     fileprivate var option = knScrollingOptions(headerView: nil)
 
     fileprivate var datasource = [knTableCell]()
@@ -46,18 +53,19 @@ class knScrollingPagerController: knCustomTableController {
         super.viewDidLoad()
 
         setupView()
-        fetchData()
     }
 
-    fileprivate func addHeaderView() {
+    var headerHeightConstraint: NSLayoutConstraint?
 
-        option.headerView?.height(option.headerHeight)
+    fileprivate func addHeaderView() {
+        let headerView = option.headerView!
+        headerHeightConstraint = headerView.height(option.headerHeight)
+        
         tableView.tableHeaderView = UIView()
         tableView.tableHeaderView?.frame.size.height = option.headerHeight
-        tableView.tableHeaderView?.addSubview(option.headerView!)
-        tableView.tableHeaderView?.addConstraints(withFormat: "H:|[v0]|", views: option.headerView!)
-        tableView.tableHeaderView?.addConstraints(withFormat: "V:|[v0]", views: option.headerView!)
-
+        tableView.tableHeaderView?.addSubview(headerView)
+        tableView.tableHeaderView?.addConstraints(withFormat: "H:|[v0]|", views: headerView)
+        tableView.tableHeaderView?.addConstraints(withFormat: "V:|[v0]", views: headerView)
     }
 
     internal override func setupView() {
@@ -68,19 +76,21 @@ class knScrollingPagerController: knCustomTableController {
         view.addSubview(tableView)
         tableView.fill(toView: view)
     }
-
+    
     override func registerCells() {
         tableView.register(knTableCell.self, forCellReuseIdentifier: "knTableCell")
     }
 
-    fileprivate var tabView: knTabView! = {
+    fileprivate lazy var tabView: knTabView = { [weak self] in
 
         let view = knTabView()
+        view.pagerDelegate = self
+        view.backgroundColor = self?.option.tabBackgroundColor
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
-    fileprivate var pageView: knPageView! = {
+    fileprivate let pageView: knPageView = {
 
         let view = knPageView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -93,12 +103,24 @@ class knScrollingPagerController: knCustomTableController {
 
         cell.addSubview(tabView)
         tabView.fill(toView: cell)
-        tabView.datasource = tabTitles
+        tabView.datasource = tabTitles.map({ return knTabData(icon: nil, title: $0) })
         tabView.option = option
-
+        
         return cell
     }
 
+    fileprivate func makeTabCell(icons: [UIImage]) -> knTableCell {
+        
+        let cell = knTableCell()
+        
+        cell.addSubview(tabView)
+        tabView.fill(toView: cell)
+        tabView.datasource = icons.map({ return knTabData(icon: $0, title: nil) })
+        tabView.option = option
+        
+        return cell
+    }
+    
     fileprivate func makePagesContainerCell(controllers: [UIViewController]) -> knTableCell {
 
         let cell = knTableCell()
@@ -119,27 +141,79 @@ class knScrollingPagerController: knCustomTableController {
     }
 }
 
+
+
+
+
+extension knScrollingPagerController: knPagerDelegate {
+    
+    func didSelectTab(at indexPath: IndexPath) {
+        
+        pageView.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        tabView.updateSelectedTab(at: indexPath)
+    }
+    
+    func changeHeaderViewHeight(_ height: CGFloat) {
+        option.headerHeight = height
+        
+        func animate() {
+            tableView.beginUpdates()
+            headerHeightConstraint?.constant = height
+            tableView.tableHeaderView?.frame.size.height = height
+            tableView.tableHeaderView?.layoutIfNeeded()
+            tableView.endUpdates()
+        }
+        
+        UIView.animate(withDuration: 0.35, animations: animate)
+    }
+}
+
+
+
+
+
 //MARK: Public
 
 extension knScrollingPagerController {
 
     func setupPages(_ pages: [UIViewController], titles: [String], options: knScrollingOptions) {
 
+        setupPages(pages, titles: titles, icons: nil, options: options)
+    }
+    
+    func setupPages(_ pages: [UIViewController], icons: [UIImage], options: knScrollingOptions) {
+        
+        setupPages(pages, titles: nil, icons: icons, options: options)
+    }
+    
+    private func setupPages(_ pages: [UIViewController],
+                            titles: [String]?,
+                            icons: [UIImage]?,
+                            options: knScrollingOptions) {
+        
         self.option = options
-
+        
         let isHeaderAvailable = option.headerView != nil
-
+        
         if isHeaderAvailable {
             addHeaderView()
         }
-
-        let tabCell = makeTabCell(tabTitles: titles)
-        datasource.append(tabCell)
-
+        
+        var tabCell: knTableCell?
+        if let titles = titles {
+            tabCell = makeTabCell(tabTitles: titles)
+        }
+        
+        if let icons = icons {
+            tabCell = makeTabCell(icons: icons)
+        }
+        
+        datasource.append(tabCell!)
+        
         let pagesCell = makePagesContainerCell(controllers: pages)
         datasource.append(pagesCell)
         pageView.tab = tabView
-
+        
         tableView.reloadData()
     }
 }
@@ -155,7 +229,7 @@ extension knScrollingPagerController {
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let pageHeight = option.pageHeight - option.tabHeight - option.headerFixHeight
+        let pageHeight = screenHeight - option.tabHeight - option.headerFixHeight
         return indexPath.row == 0 ? option.tabHeight : pageHeight
     }
 
@@ -171,7 +245,7 @@ extension knScrollingPagerController {
 private class knPageView: knView {
 
     weak var tab: knTabView?
-
+    
     var addPageOutside: ((UIViewController) -> Void)?
 
     internal var numberOfPages = 1
@@ -182,8 +256,8 @@ private class knPageView: knView {
             collectionView.reloadData()
         }
     }
-
-    private lazy var collectionView: UICollectionView = {
+    
+    lazy var collectionView: UICollectionView = {
 
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -211,13 +285,19 @@ private class knPageView: knView {
 extension knPageView : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        tab?.indicatorLeft?.constant = scrollView.contentOffset.x / CGFloat(datasource.count)
+        updateIndicationPosition(currentX: scrollView.contentOffset.x)
+    }
+    
+    func updateIndicationPosition(currentX: CGFloat) {
+        tab?.indicatorLeft?.constant = currentX / CGFloat(datasource.count)
     }
 
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
 
         let index = targetContentOffset.pointee.x / frame.width
-        tab?.collectionView.selectItem(at: IndexPath(item: Int(index), section: 0), animated: true, scrollPosition: [])
+        let indexPath = IndexPath(item: Int(index), section: 0)
+        tab?.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
+        tab?.updateSelectedTab(at: indexPath)
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -276,6 +356,8 @@ private class knPageCell: knCollectionCell {
 
 private class knTabView: knView {
 
+    weak var pagerDelegate: knPagerDelegate?
+    
     var option = knScrollingOptions(headerView: nil) {
         didSet {
             indicatorView.backgroundColor = option.indicatorColor
@@ -283,9 +365,11 @@ private class knTabView: knView {
         }
     }
 
+    fileprivate var selectedTab: knTabCell?
+
     fileprivate var numberOfTabs: CGFloat = 2
 
-    var datasource = [String]() {
+    var datasource = [knTabData]() {
         didSet {
             numberOfTabs = CGFloat(datasource.count > 0 ? datasource.count : 1)
             indicatorWidth?.constant = screenWidth / CGFloat(numberOfTabs)
@@ -305,6 +389,7 @@ private class knTabView: knView {
         cv.alwaysBounceVertical = false
         cv.delegate = self
         cv.dataSource = self
+        cv.backgroundColor = .clear
         return cv
     }()
 
@@ -322,21 +407,25 @@ private class knTabView: knView {
     override func setupView() {
         collectionView.register(knTabCell.self, forCellWithReuseIdentifier: "knTabCell")
 
-        addSubview(collectionView)
-        collectionView.fill(toView: self)
-
         addSubview(indicatorView)
         indicatorView.bottom(toView: self)
-
+        
         indicatorWidth = indicatorView.width(screenWidth / CGFloat(numberOfTabs))
         indicatorHeight = indicatorView.height(1)
         indicatorLeft = indicatorView.left(toView: self)
 
+        addSubview(collectionView)
+        collectionView.fill(toView: self)
     }
 
 }
 
 extension knTabView : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func updateSelectedTab(at indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as? knTabCell
+        selectedTab = cell
+    }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return datasource.count
@@ -345,7 +434,13 @@ extension knTabView : UICollectionViewDelegate, UICollectionViewDataSource, UICo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "knTabCell", for: indexPath) as! knTabCell
-        cell.titleLabel.text = datasource[indexPath.row]
+        cell.data = datasource[indexPath.row]
+        cell.setTitleLabel(font: option.tabFont)
+        
+        if indexPath.row == 0 {
+            selectedTab = cell
+            cell.setTitleLabel(font: option.tabActivateFont)
+        }
         return cell
     }
 
@@ -358,11 +453,39 @@ extension knTabView : UICollectionViewDelegate, UICollectionViewDataSource, UICo
         let width = screenWidth / CGFloat(numberOfTabs)
         return CGSize(width: width, height: option.tabHeight)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        pagerDelegate?.didSelectTab?(at: indexPath)
+        let cell = collectionView.cellForItem(at: indexPath) as? knTabCell
+        cell?.setTitleLabel(font: option.tabActivateFont)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as? knTabCell
+        cell?.setTitleLabel(font: option.tabFont)
+    }
 }
 
 private class knTabCell: knCollectionCell {
 
-    let titleLabel: UILabel = {
+    var data: knTabData? {
+        didSet {
+            
+            let isIconAvailable = data?.icon != nil
+            
+            titleLabel.isHidden = isIconAvailable
+            iconImageView.isHidden = !isIconAvailable
+            
+            titleLabel.text = data?.title
+            iconImageView.image = data?.icon
+        }
+    }
+
+    func setTitleLabel(font: UIFont) {
+        titleLabel.font = font
+    }
+
+    private let titleLabel: UILabel = {
 
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -371,15 +494,35 @@ private class knTabCell: knCollectionCell {
         return label
     }()
     
+    private let iconImageView: UIImageView = {
+        
+        let iv = UIImageView()
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
+        return iv
+    }()
+    
     override func setupView() {
         addSubview(titleLabel)
-        
         titleLabel.center(toView: self)
+        
+        addSubview(iconImageView)
+        iconImageView.square(edge: 24)
+        iconImageView.center(toView: self)
     }
     
 }
 
 
+private struct knTabData {
+    var icon: UIImage?
+    var title: String?
+}
+
+private enum knTabType: String {
+    case icon, title
+}
 
 
 
