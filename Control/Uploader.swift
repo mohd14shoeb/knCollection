@@ -61,7 +61,7 @@ struct knUploadWorker: knWorker {
             }
             
             do {
-                guard let json = try JSONSerialization.jsonObject(with: data!, options: []) as? NSDictionary else {
+                guard let json = try JSONSerialization.jsonObject(with: data!, options: []) as? AnyObject else {
                     self.success?(response!)
                     return
                 }
