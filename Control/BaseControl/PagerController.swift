@@ -128,12 +128,6 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		self.changeActiveTabIndex(self.activeTabIndex)
 	}
 
-
-	override open func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
-	}
-
 	// MARK: - Private Methods
 	func defaultSettings() {
 		for (view): (UIView) in self.pageViewController.view!.subviews as [UIView] {
@@ -207,8 +201,10 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 			}
 		}
 
-        tabWidth = UIScreen.main.bounds.size.width / CGFloat(tabCount) < tabWidth ? tabWidth : UIScreen.main.bounds.size.width / CGFloat(tabCount)
-        
+//        tabWidth = UIScreen.main.bounds.size.width / CGFloat(tabCount) < tabWidth ? tabWidth : UIScreen.main.bounds.size.width / CGFloat(tabCount)
+
+        tabWidth = UIScreen.main.bounds.size.width / CGFloat(tabCount)
+
 		for i in 0 ..< self.tabCount {
 			let tabView: UIView? = self.tabViewAtIndex(i) as UIView?
 			var frame: CGRect = tabView!.frame
@@ -579,180 +575,180 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 	// MARK: - UIScrollViewDelegate
 	// MARK: Responding to Scrolling and Dragging
-	open func scrollViewDidScroll(_ scrollView: UIScrollView) {
-		if self.actualDelegate != nil {
-			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidScroll(_:))) {
-				self.actualDelegate!.scrollViewDidScroll!(scrollView)
-			}
-		}
+    open func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if self.actualDelegate != nil {
+            if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidScroll(_:))) {
+                self.actualDelegate!.scrollViewDidScroll!(scrollView)
+            }
+        }
 
-		let tabView: UIView = self.tabViewAtIndex(self.activeTabIndex)!
+        let tabView: UIView = self.tabViewAtIndex(self.activeTabIndex)!
 
-		if !self.animatingToTab {
+        if !self.animatingToTab {
 
-			// Get the related tab view position
-			var frame: CGRect = tabView.frame
-			let movedRatio: CGFloat = (scrollView.contentOffset.x / scrollView.frame.width) - 1
-			frame.origin.x += movedRatio * frame.width
+            // Get the related tab view position
+            var frame: CGRect = tabView.frame
+            let movedRatio: CGFloat = (scrollView.contentOffset.x / scrollView.frame.width) - 1
+            frame.origin.x += movedRatio * frame.width
 
-			if self.centerCurrentTab {
+//            if self.centerCurrentTab {
+//
+//                frame.origin.x += (frame.size.width / 2)
+//                frame.origin.x -= self.tabsView!.frame.width / 2
+//                frame.size.width = self.tabsView!.frame.width
+//
+//                if frame.origin.x < 0 {
+//                    frame.origin.x = 0
+//                }
+//
+//                if (frame.origin.x + frame.size.width) > self.tabsView!.contentSize.width {
+//                    frame.origin.x = (self.tabsView!.contentSize.width - self.tabsView!.frame.width)
+//                }
+//            } else {
+//
+//                frame.origin.x -= self.tabOffset
+//                frame.size.width = self.tabsView!.frame.width
+//            }
 
-				frame.origin.x += (frame.size.width / 2)
-				frame.origin.x -= self.tabsView!.frame.width / 2
-				frame.size.width = self.tabsView!.frame.width
+            self.tabsView!.scrollRectToVisible(frame, animated: false)
+        }
 
-				if frame.origin.x < 0 {
-					frame.origin.x = 0
-				}
+        var rect: CGRect = tabView.frame
 
-				if (frame.origin.x + frame.size.width) > self.tabsView!.contentSize.width {
-					frame.origin.x = (self.tabsView!.contentSize.width - self.tabsView!.frame.width)
-				}
-			} else {
+        let updateIndicator = {
+            (newX: CGFloat) -> Void in
+            rect.origin.x = newX
+            rect.origin.y = self.underlineStroke.frame.origin.y
+            rect.size.height = self.underlineStroke.frame.size.height
+            self.underlineStroke.frame = rect
+        }
 
-				frame.origin.x -= self.tabOffset
-				frame.size.width = self.tabsView!.frame.width
-			}
+        var newX: CGFloat
+        let width: CGFloat = self.view.frame.width
+        let distance: CGFloat = tabView.frame.size.width
 
-			self.tabsView!.scrollRectToVisible(frame, animated: false)
-		}
+        if self.animation == PagerAnimation.during && !self.didTapOnTabView {
+            if scrollView.panGestureRecognizer.translation(in: scrollView.superview!).x > 0 {
+                let mov: CGFloat = width - scrollView.contentOffset.x
+                newX = rect.origin.x - ((distance * mov) / width)
+            } else {
+                let mov: CGFloat = scrollView.contentOffset.x - width
+                newX = rect.origin.x + ((distance * mov) / width)
+            }
+            updateIndicator(newX)
+        } else if self.animation == PagerAnimation.none {
+            newX = tabView.frame.origin.x
+            updateIndicator(newX)
+        } else if self.animation == PagerAnimation.end || self.didTapOnTabView {
+            newX = tabView.frame.origin.x
+            UIView.animate(withDuration: 0.35, animations: {
+                () -> Void in
+                updateIndicator(newX)
+            })
+        }
+    }
 
-		var rect: CGRect = tabView.frame
+//    open func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+//        if self.actualDelegate != nil {
+//            if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewWillBeginDragging(_:))) {
+//                self.actualDelegate!.scrollViewWillBeginDragging!(scrollView)
+//            }
+//        }
+//    }
+//
+//    open func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+//        if self.actualDelegate != nil {
+//            if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewWillEndDragging(_: withVelocity: targetContentOffset:))) {
+//                self.actualDelegate!.scrollViewWillEndDragging!(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+//            }
+//        }
+//    }
 
-		let updateIndicator = {
-			(newX: CGFloat) -> Void in
-			rect.origin.x = newX
-			rect.origin.y = self.underlineStroke.frame.origin.y
-			rect.size.height = self.underlineStroke.frame.size.height
-			self.underlineStroke.frame = rect
-		}
+//    open func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+//        if self.actualDelegate != nil {
+//            if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidEndDragging(_: willDecelerate:))) {
+//                self.actualDelegate!.scrollViewDidEndDragging!(scrollView, willDecelerate: decelerate)
+//            }
+//        }
+//        self.didTapOnTabView = false
+//    }
 
-		var newX: CGFloat
-		let width: CGFloat = self.view.frame.width
-		let distance: CGFloat = tabView.frame.size.width
+//    open func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+//        if self.actualDelegate != nil {
+//            if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewShouldScrollToTop(_:))) {
+//                return self.actualDelegate!.scrollViewShouldScrollToTop!(scrollView)
+//            }
+//        }
+//        return false
+//    }
 
-		if self.animation == PagerAnimation.during && !self.didTapOnTabView {
-			if scrollView.panGestureRecognizer.translation(in: scrollView.superview!).x > 0 {
-				let mov: CGFloat = width - scrollView.contentOffset.x
-				newX = rect.origin.x - ((distance * mov) / width)
-			} else {
-				let mov: CGFloat = scrollView.contentOffset.x - width
-				newX = rect.origin.x + ((distance * mov) / width)
-			}
-			updateIndicator(newX)
-		} else if self.animation == PagerAnimation.none {
-			newX = tabView.frame.origin.x
-			updateIndicator(newX)
-		} else if self.animation == PagerAnimation.end || self.didTapOnTabView {
-			newX = tabView.frame.origin.x
-			UIView.animate(withDuration: 0.35, animations: {
-				() -> Void in
-				updateIndicator(newX)
-			})
-		}
-	}
+//    open func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+//        if self.actualDelegate != nil {
+//            if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidScrollToTop(_:))) {
+//                self.actualDelegate!.scrollViewDidScrollToTop!(scrollView)
+//            }
+//        }
+//    }
 
-	open func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-		if self.actualDelegate != nil {
-			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewWillBeginDragging(_:))) {
-				self.actualDelegate!.scrollViewWillBeginDragging!(scrollView)
-			}
-		}
-	}
+//    open func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+//        if self.actualDelegate != nil {
+//            if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewWillBeginDecelerating(_:))) {
+//                self.actualDelegate!.scrollViewWillBeginDecelerating!(scrollView)
+//            }
+//        }
+//    }
 
-	open func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-		if self.actualDelegate != nil {
-			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewWillEndDragging(_: withVelocity: targetContentOffset:))) {
-				self.actualDelegate!.scrollViewWillEndDragging!(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
-			}
-		}
-	}
-
-	open func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-		if self.actualDelegate != nil {
-			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidEndDragging(_: willDecelerate:))) {
-				self.actualDelegate!.scrollViewDidEndDragging!(scrollView, willDecelerate: decelerate)
-			}
-		}
-		self.didTapOnTabView = false
-	}
-
-	open func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-		if self.actualDelegate != nil {
-			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewShouldScrollToTop(_:))) {
-				return self.actualDelegate!.scrollViewShouldScrollToTop!(scrollView)
-			}
-		}
-		return false
-	}
-
-	open func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
-		if self.actualDelegate != nil {
-			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidScrollToTop(_:))) {
-				self.actualDelegate!.scrollViewDidScrollToTop!(scrollView)
-			}
-		}
-	}
-
-	open func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-		if self.actualDelegate != nil {
-			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewWillBeginDecelerating(_:))) {
-				self.actualDelegate!.scrollViewWillBeginDecelerating!(scrollView)
-			}
-		}
-	}
-
-	open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-		if self.actualDelegate != nil {
-			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidEndDecelerating(_:))) {
-				self.actualDelegate!.scrollViewDidEndDecelerating!(scrollView)
-			}
-		}
-		self.didTapOnTabView = false
-	}
+//    open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        if self.actualDelegate != nil {
+//            if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidEndDecelerating(_:))) {
+//                self.actualDelegate!.scrollViewDidEndDecelerating!(scrollView)
+//            }
+//        }
+//        self.didTapOnTabView = false
+//    }
 
 	// MARK: Managing Zooming
-	open func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-		if self.actualDelegate != nil {
-			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.viewForZooming(in:))) {
-				return self.actualDelegate!.viewForZooming!(in: scrollView)
-			}
-		}
-		return nil
-	}
+//    open func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+//        if self.actualDelegate != nil {
+//            if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.viewForZooming(in:))) {
+//                return self.actualDelegate!.viewForZooming!(in: scrollView)
+//            }
+//        }
+//        return nil
+//    }
 
-	open func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
-		if self.actualDelegate != nil {
-			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewWillBeginZooming(_:with:))) {
-				self.actualDelegate!.scrollViewWillBeginZooming!(scrollView, with: view)
-			}
-		}
-	}
+//    open func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+//        if self.actualDelegate != nil {
+//            if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewWillBeginZooming(_:with:))) {
+//                self.actualDelegate!.scrollViewWillBeginZooming!(scrollView, with: view)
+//            }
+//        }
+//    }
 
-	open func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-		if self.actualDelegate != nil {
-			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidEndZooming(_:with:atScale:))) {
-				self.actualDelegate!.scrollViewDidEndZooming!(scrollView, with: view, atScale: scale)
-			}
-		}
-	}
+//    open func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+//        if self.actualDelegate != nil {
+//            if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidEndZooming(_:with:atScale:))) {
+//                self.actualDelegate!.scrollViewDidEndZooming!(scrollView, with: view, atScale: scale)
+//            }
+//        }
+//    }
 
 	open func scrollViewDidZoom(_ scrollView: UIScrollView) {
-		if self.actualDelegate != nil {
-			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidZoom(_:))) {
-				self.actualDelegate!.scrollViewDidZoom!(scrollView)
-			}
-		}
+//        if self.actualDelegate != nil {
+//            if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidZoom(_:))) {
+//                self.actualDelegate!.scrollViewDidZoom!(scrollView)
+//            }
+//        }
 	}
 
 	// UIScrollViewDelegate, Responding to Scrolling Animations
 	open func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-		if self.actualDelegate != nil {
-			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidEndScrollingAnimation(_:))) {
-				self.actualDelegate!.scrollViewDidEndScrollingAnimation!(scrollView)
-			}
-		}
-		self.didTapOnTabView = false
+//        if self.actualDelegate != nil {
+//            if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidEndScrollingAnimation(_:))) {
+//                self.actualDelegate!.scrollViewDidEndScrollingAnimation!(scrollView)
+//            }
+//        }
+//        self.didTapOnTabView = false
 	}
 }
 
@@ -778,6 +774,6 @@ extension Array {
 				return idx
 			}
 		}
-		return 0
+		return nil
 	}
 }
