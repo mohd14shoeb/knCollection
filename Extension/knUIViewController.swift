@@ -74,7 +74,7 @@ extension UIViewController {
         _ = navigationController?.popViewController(animated: true)
     }
 
-    func present(controller: UIViewController) {
+    func present(_ controller: UIViewController) {
         present(controller, animated: true)
     }
 
