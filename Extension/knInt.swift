@@ -15,3 +15,21 @@ public extension UInt32 {
         return Int(arc4random_uniform(upper - lower - 10) + lower)
     }
 }
+
+extension Formatter {
+    
+    static func format(with separator: String) -> NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.groupingSeparator = separator
+        formatter.numberStyle = .decimal
+        return formatter
+    }
+}
+
+extension Integer {
+    
+    func format(with separator: String) -> String {
+        return Formatter.format(with: separator).string(for: self) ?? ""
+    }
+    
+}

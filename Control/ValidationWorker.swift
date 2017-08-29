@@ -61,7 +61,7 @@ struct knValidationWorker {
         
         /* SG Phone Number */
         let newPhone = phone.replacingOccurrences(of: "+65", with: "")
-        if (newPhone.startsWith("8") || newPhone.startsWith("9")) && newPhone.length == 8 {
+        if (newPhone.hasPrefix("8") || newPhone.hasPrefix("9")) && newPhone.length == 8 {
             responseToResult?(nil)
         }
         else {

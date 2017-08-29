@@ -10,6 +10,10 @@ import UIKit
 
 extension UIButton {
 
+    func addTarget(_ target: Any?, action: Selector) {
+        addTarget(target, action: action, for: .touchUpInside)
+    }
+    
     func setBackgroundColor(color: UIColor, forState: UIControlState) {
 
         let colorImage = imageFromColor(color: color)
@@ -54,4 +58,12 @@ extension UIButton {
         CATransaction.commit()
     }
 
+}
+
+
+extension UIBarButtonItem {
+    func format(font: UIFont, textColor: UIColor) {
+        setTitleTextAttributes([NSFontAttributeName: font, NSForegroundColorAttributeName: textColor],
+                               for: UIControlState.normal)
+    }
 }

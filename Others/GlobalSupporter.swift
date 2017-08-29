@@ -39,6 +39,11 @@ var isStatusBarHidden = false {
     }
 }
 
+func hideKeyboard() {
+    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+}
+
+
 func makeCall(to number: String) {
     
     guard let phoneUrl = URL(string: "tel://\(number)") else { return }

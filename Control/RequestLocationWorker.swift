@@ -12,10 +12,10 @@ import CoreLocation
 class knRequestLocationWorker: NSObject, knWorker {
     
     var success: ((CLLocation) -> Void)?
-    var locationOff: ((Void) -> Void)?
-    var deniedLocation: ((Void) -> Void)?
+    var locationOff: (() -> Void)?
+    var deniedLocation: (() -> Void)?
     
-    init(success: ((CLLocation) -> Void)?, locationOff: ((Void) -> Void)?, deniedLocation: ((Void) -> Void)?) {
+    init(success: ((CLLocation) -> Void)?, locationOff: ((Void) -> Void)?, deniedLocation: (() -> Void)?) {
         self.success = success
         self.locationOff = locationOff
         self.deniedLocation = deniedLocation

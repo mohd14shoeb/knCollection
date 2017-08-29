@@ -224,8 +224,11 @@ public extension String {
     }
     
     func isEmpty() -> Bool {
-        let nonWhitespaceSet = CharacterSet.whitespacesAndNewlines.inverted
-        return components(separatedBy: nonWhitespaceSet).joined(separator: "").length != 0
+        return trim().length == 0
+    }
+    
+    func isNotEmpty() -> Bool {
+        return trim().length > 0
     }
     
     func isNumeric() -> Bool {

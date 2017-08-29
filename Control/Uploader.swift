@@ -69,7 +69,8 @@ struct knUploadWorker: knWorker {
                 print(json)
                 self.success?(json)
                 
-            } catch {    print(error)    }
+            } catch let err
+            {    print(err)    }
         }
     
         task.resume()

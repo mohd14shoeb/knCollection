@@ -9,15 +9,15 @@
 import Foundation
 import UIKit
 
-extension UIBarButtonItem {
-    
-    func changeTitleColor(_ color: UIColor = UIColor.blue, font: UIFont = UIFont.systemFont(ofSize: 14)) {
-        let format = [
-            NSForegroundColorAttributeName: color,
-            NSFontAttributeName: font]
-        setTitleTextAttributes(format, for: .normal)
-    }
-}
+//extension UIBarButtonItem {
+//
+//    func changeTitleColor(_ color: UIColor = UIColor.blue, font: UIFont = UIFont.systemFont(ofSize: 14)) {
+//        let format = [
+//            NSForegroundColorAttributeName: color,
+//            NSFontAttributeName: font]
+//        setTitleTextAttributes(format, for: .normal)
+//    }
+//}
 
 
 extension UILabel{
