@@ -22,7 +22,7 @@ struct knRegisterDeviceTokenWorker: knWorker {
         func handleError(_ error: knError) {
         }
 
-        ServiceConnector.post(api, params: params, success: handleSuccess, fail: handleError)
+//        ServiceConnector.post(api, params: params, success: handleSuccess, fail: handleError)
     }
 
 }

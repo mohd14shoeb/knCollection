@@ -8,7 +8,7 @@
 
 import UIKit
 import CoreLocation
-import GooglePlaces
+//import GooglePlaces
 
 class knLocationManager: NSObject {
 
@@ -61,22 +61,22 @@ class knLocationManager: NSObject {
 
     func findAddress(completion: @escaping (_ address: String?) -> Void) {
 
-        let placesClient = GMSPlacesClient()
-        placesClient.currentPlace(callback: { [weak self]
-            (places, error) -> Void in
-
-            if let error = error {
-                print("Pick Place error: \(error.localizedDescription)")
-                return
-            }
-
-            guard let places = places else { return }
-            for likelihood in places.likelihoods {
-                self?.address = likelihood.place.formattedAddress
-                completion(likelihood.place.formattedAddress)
-                break
-            }
-        })
+//        let placesClient = GMSPlacesClient()
+//        placesClient.currentPlace(callback: { [weak self]
+//            (places, error) -> Void in
+//
+//            if let error = error {
+//                print("Pick Place error: \(error.localizedDescription)")
+//                return
+//            }
+//
+//            guard let places = places else { return }
+//            for likelihood in places.likelihoods {
+//                self?.address = likelihood.place.formattedAddress
+//                completion(likelihood.place.formattedAddress)
+//                break
+//            }
+//        })
 
     }
 
