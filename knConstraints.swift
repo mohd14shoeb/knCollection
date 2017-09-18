@@ -42,6 +42,10 @@ extension UIView {
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutFormatOptions(), metrics: nil, views: viewsDictionary))
     }
     
+    func removeAllConstraints() {
+        removeConstraints(constraints)
+    }
+    
     func addSubviews(views: UIView...) {
         for view in views {
             addSubview(view)

@@ -24,6 +24,8 @@ enum knErrorCode : String {
     case facebookCancel
     case cantGetUploadedUrl
     case uploadFail
+    
+    case sendFail
 }
 
 struct knError {
